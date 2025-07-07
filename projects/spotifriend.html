@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpotiFriend - Edward Lai</title>
+    <link rel="stylesheet" href="../styles.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="grid"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">EL</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../resume.html">Resume</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Hobbies <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../hobbies/chess.html">Chess</a></li>
+                        <li><a href="../hobbies/piano.html">Piano</a></li>
+                        <li><a href="../hobbies/skateboarding.html">Skateboarding</a></li>
+                        <li><a href="../hobbies/volleyball.html">Volleyball</a></li>
+                    </ul>
+                </li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-image">
+                    <img src="../static/images/spotifriend-project.jpg" alt="SpotiFriend">
+                </div>
+                <div class="project-info">
+                    <h1>SpotiFriend</h1>
+                    <p class="project-description">Scalable cloud-based data pipeline analyzing Spotify listening behavior across 10,000+ tracks with real-time SQL queries.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">S3</span>
+                        <span class="tech-tag">Glue</span>
+                        <span class="tech-tag">Athena</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <div class="project-section">
+                    <h2>Overview</h2>
+                    <p>SpotiFriend is a cloud-based data pipeline that analyzes Spotify listening behavior and patterns. The system processes data from over 10,000 tracks and provides real-time SQL querying capabilities for music analytics and insights.</p>
+                </div>
+
+                <div class="project-section">
+                    <h2>Key Features</h2>
+                    <ul>
+                        <li><strong>Data Ingestion:</strong> Automated pipeline for collecting Spotify listening data</li>
+                        <li><strong>Scalable Processing:</strong> Cloud-based architecture handling 10,000+ tracks</li>
+                        <li><strong>Real-time Queries:</strong> SQL-based analytics with fast response times</li>
+                        <li><strong>Music Analytics:</strong> Detailed insights into listening patterns and preferences</li>
+                        <li><strong>Cloud Infrastructure:</strong> AWS-based solution for reliability and scalability</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Technical Architecture</h2>
+                    <div class="architecture-grid">
+                        <div class="arch-item">
+                            <h3>Data Storage</h3>
+                            <p>AWS S3 for scalable and durable data storage with cost-effective pricing</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Data Processing</h3>
+                            <p>AWS Glue for serverless ETL jobs and data transformation</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Query Engine</h3>
+                            <p>AWS Athena for serverless SQL queries on S3 data</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Data Pipeline</h3>
+                            <p>Python-based automation for data collection and processing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h2>Challenges & Solutions</h2>
+                    <div class="challenge-item">
+                        <h3>Challenge: Large-Scale Data Processing</h3>
+                        <p>Processing and analyzing data from 10,000+ tracks efficiently while maintaining cost-effectiveness.</p>
+                        <p><strong>Solution:</strong> Implemented serverless AWS architecture with S3, Glue, and Athena for scalable and cost-effective data processing.</p>
+                    </div>
+                    <div class="challenge-item">
+                        <h3>Challenge: Real-time Analytics</h3>
+                        <p>Providing fast SQL queries on large datasets without maintaining expensive database infrastructure.</p>
+                        <p><strong>Solution:</strong> Used AWS Athena for serverless SQL queries directly on S3 data, eliminating the need for database servers.</p>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h2>Results & Impact</h2>
+                    <ul>
+                        <li>Successfully processed data from 10,000+ tracks</li>
+                        <li>Implemented real-time SQL querying capabilities</li>
+                        <li>Built scalable cloud-based data pipeline</li>
+                        <li>Reduced infrastructure costs through serverless architecture</li>
+                        <li>Provided insights into music listening patterns and preferences</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Future Enhancements</h2>
+                    <ul>
+                        <li>Machine learning models for music recommendation</li>
+                        <li>Real-time streaming analytics with Kinesis</li>
+                        <li>Advanced visualization dashboard</li>
+                        <li>Integration with other music platforms</li>
+                        <li>Social features for sharing music insights</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../script.js"></script>
+</body>
+</html> 

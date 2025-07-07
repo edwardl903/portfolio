@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation Pipeline - Edward Lai</title>
+    <link rel="stylesheet" href="../styles.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="grid"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">EL</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../resume.html">Resume</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Hobbies <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../hobbies/chess.html">Chess</a></li>
+                        <li><a href="../hobbies/piano.html">Piano</a></li>
+                        <li><a href="../hobbies/skateboarding.html">Skateboarding</a></li>
+                        <li><a href="../hobbies/volleyball.html">Volleyball</a></li>
+                    </ul>
+                </li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-image">
+                    <img src="../static/images/movie-recommendations-project.jpg" alt="Movie Recommendations">
+                </div>
+                <div class="project-info">
+                    <h1>Scalable Movie Recommendation Pipeline</h1>
+                    <p class="project-description">Built a scalable recommendation system using collaborative filtering algorithms with Mean Absolute Error optimization, processing millions of user ratings for personalized movie suggestions.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Collaborative Filtering</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Recommendation Systems</span>
+                        <span class="tech-tag">MAE</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <div class="project-section">
+                    <h2>Overview</h2>
+                    <p>This project developed a sophisticated movie recommendation system that leverages collaborative filtering algorithms to provide personalized movie suggestions. The system processes millions of user ratings and employs Mean Absolute Error (MAE) optimization to ensure high-quality recommendations. The scalable architecture allows for efficient processing of large-scale datasets.</p>
+                </div>
+
+                <div class="project-section">
+                    <h2>Key Features</h2>
+                    <ul>
+                        <li><strong>Collaborative Filtering:</strong> Advanced algorithms for user-based and item-based recommendations</li>
+                        <li><strong>Large-Scale Processing:</strong> Handles millions of user ratings efficiently</li>
+                        <li><strong>MAE Optimization:</strong> Mean Absolute Error optimization for improved accuracy</li>
+                        <li><strong>Personalized Suggestions:</strong> Tailored movie recommendations for individual users</li>
+                        <li><strong>Scalable Architecture:</strong> Designed to handle growing datasets and user bases</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Technical Architecture</h2>
+                    <div class="architecture-grid">
+                        <div class="arch-item">
+                            <h3>Data Processing</h3>
+                            <p>Efficient handling of millions of user ratings and movie metadata</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Collaborative Filtering</h3>
+                            <p>User-based and item-based recommendation algorithms</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>MAE Optimization</h3>
+                            <p>Mean Absolute Error optimization for recommendation accuracy</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Recommendation Engine</h3>
+                            <p>Scalable engine for generating personalized movie suggestions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h2>Algorithm Implementation</h2>
+                    <ul>
+                        <li><strong>User-Based Collaborative Filtering:</strong> Finds similar users and recommends movies they liked</li>
+                        <li><strong>Item-Based Collaborative Filtering:</strong> Identifies similar movies based on user preferences</li>
+                        <li><strong>Matrix Factorization:</strong> Advanced techniques for handling sparse rating matrices</li>
+                        <li><strong>MAE Evaluation:</strong> Comprehensive evaluation using Mean Absolute Error metrics</li>
+                        <li><strong>Performance Optimization:</strong> Efficient algorithms for large-scale processing</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Challenges & Solutions</h2>
+                    <div class="challenge-item">
+                        <h3>Challenge: Cold Start Problem</h3>
+                        <p>Providing accurate recommendations for new users with limited rating history.</p>
+                        <p><strong>Solution:</strong> Implemented hybrid approaches combining collaborative filtering with content-based methods and popular item recommendations.</p>
+                    </div>
+                    <div class="challenge-item">
+                        <h3>Challenge: Scalability</h3>
+                        <p>Processing millions of ratings efficiently while maintaining recommendation quality.</p>
+                        <p><strong>Solution:</strong> Built scalable architecture with optimized algorithms, efficient data structures, and parallel processing capabilities.</p>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h2>Results & Impact</h2>
+                    <ul>
+                        <li>Successfully processed millions of user ratings</li>
+                        <li>Implemented accurate collaborative filtering algorithms</li>
+                        <li>Achieved optimized MAE scores for recommendation quality</li>
+                        <li>Built scalable recommendation pipeline</li>
+                        <li>Provided personalized movie suggestions for users</li>
+                        <li>Demonstrated effective handling of large-scale datasets</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Technical Implementation</h2>
+                    <ul>
+                        <li><strong>Python Framework:</strong> Comprehensive machine learning implementation with NumPy and Pandas</li>
+                        <li><strong>Collaborative Filtering:</strong> Custom implementation of user-based and item-based algorithms</li>
+                        <li><strong>MAE Optimization:</strong> Systematic optimization of recommendation accuracy</li>
+                        <li><strong>Data Processing:</strong> Efficient handling of large-scale rating datasets</li>
+                        <li><strong>Performance Tuning:</strong> Optimized algorithms for speed and accuracy</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Evaluation Metrics</h2>
+                    <ul>
+                        <li><strong>Mean Absolute Error (MAE):</strong> Primary metric for recommendation accuracy</li>
+                        <li><strong>Precision and Recall:</strong> Evaluation of recommendation relevance</li>
+                        <li><strong>Coverage:</strong> Assessment of recommendation diversity</li>
+                        <li><strong>Scalability Testing:</strong> Performance evaluation with large datasets</li>
+                        <li><strong>User Satisfaction Metrics:</strong> Qualitative assessment of recommendation quality</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Future Enhancements</h2>
+                    <ul>
+                        <li>Deep learning models for improved recommendation accuracy</li>
+                        <li>Real-time recommendation updates based on user behavior</li>
+                        <li>Multi-modal recommendations incorporating movie content analysis</li>
+                        <li>Integration with streaming platforms and movie databases</li>
+                        <li>Advanced personalization features based on viewing context</li>
+                        <li>Social recommendation features incorporating friend preferences</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../script.js"></script>
+</body>
+</html> 

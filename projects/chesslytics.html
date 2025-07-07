@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChessLytics - Edward Lai</title>
+    <link rel="stylesheet" href="../styles.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="grid"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">EL</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../resume.html">Resume</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Hobbies <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../hobbies/chess.html">Chess</a></li>
+                        <li><a href="../hobbies/piano.html">Piano</a></li>
+                        <li><a href="../hobbies/skateboarding.html">Skateboarding</a></li>
+                        <li><a href="../hobbies/volleyball.html">Volleyball</a></li>
+                    </ul>
+                </li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-image">
+                    <img src="../static/images/chesslytics-project.jpg" alt="ChessLytics">
+                </div>
+                <div class="project-info">
+                    <h1>ChessLytics</h1>
+                    <p class="project-description">End-to-end chess analytics platform processing 100,000+ games with personalized Year in Review reports and real-time insights.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">BigQuery</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">ETL Pipelines</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.chesslytics.xyz" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/edwardl903/chesslyzer" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <div class="project-section">
+                    <h2>Overview</h2>
+                    <p>ChessLytics is a comprehensive chess analytics platform that processes and analyzes chess games to provide players with detailed insights into their playing patterns, strengths, and areas for improvement. The platform handles over 100,000 games and generates personalized Year in Review reports for users.</p>
+                </div>
+
+                <div class="project-section">
+                    <h2>Key Features</h2>
+                    <ul>
+                        <li><strong>Game Processing:</strong> Automated ETL pipeline processing 100,000+ chess games</li>
+                        <li><strong>Personalized Reports:</strong> Year in Review analytics with detailed statistics</li>
+                        <li><strong>Real-time Insights:</strong> Live analytics dashboard with current performance metrics</li>
+                        <li><strong>Opening Analysis:</strong> Detailed breakdown of opening performance and preferences</li>
+                        <li><strong>Performance Tracking:</strong> Rating progression and game outcome analysis</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Technical Architecture</h2>
+                    <div class="architecture-grid">
+                        <div class="arch-item">
+                            <h3>Data Pipeline</h3>
+                            <p>ETL pipeline built with Python and BigQuery for efficient processing of large chess datasets</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Web Application</h3>
+                            <p>Flask-based web application serving analytics and reports to users</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Data Storage</h3>
+                            <p>BigQuery for scalable data warehousing and complex analytical queries</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Analytics Engine</h3>
+                            <p>Custom analytics engine for generating personalized insights and reports</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h2>Challenges & Solutions</h2>
+                    <div class="challenge-item">
+                        <h3>Challenge: Processing Large Datasets</h3>
+                        <p>Handling 100,000+ games efficiently while maintaining fast query performance.</p>
+                        <p><strong>Solution:</strong> Implemented optimized ETL pipelines with BigQuery for scalable data processing and efficient querying.</p>
+                    </div>
+                    <div class="challenge-item">
+                        <h3>Challenge: Real-time Analytics</h3>
+                        <p>Providing real-time insights while maintaining data accuracy and performance.</p>
+                        <p><strong>Solution:</strong> Built a caching layer and optimized database queries for fast response times.</p>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h2>Results & Impact</h2>
+                    <ul>
+                        <li>Successfully processed and analyzed 100,000+ chess games</li>
+                        <li>Generated personalized Year in Review reports for users</li>
+                        <li>Provided real-time analytics dashboard with performance insights</li>
+                        <li>Improved user understanding of their chess playing patterns</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Future Enhancements</h2>
+                    <ul>
+                        <li>Machine learning models for game outcome prediction</li>
+                        <li>Advanced opening repertoire analysis</li>
+                        <li>Social features for comparing with friends</li>
+                        <li>Mobile application for on-the-go analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../script.js"></script>
+</body>
+</html> 

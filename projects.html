@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Edward Lai</title>
+    <link rel="stylesheet" href="styles.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="grid"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">EL</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Hobbies <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hobbies/chess.html">Chess</a></li>
+                        <li><a href="hobbies/piano.html">Piano</a></li>
+                        <li><a href="hobbies/skateboarding.html">Skateboarding</a></li>
+                        <li><a href="hobbies/volleyball.html">Volleyball</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="projects-header">
+                <h1 class="projects-title">I have worked on a number of fun data projects (data engineering and data analytics).</h1>
+                <p class="projects-subtitle">Feel free to ask me any questions!</p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card-overlay">
+                    <div class="project-image-cover">
+                        <a href="projects/chesslytics.html">
+                            <img src="static/images/chesslytics-project.jpg" alt="ChessLytics">
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <h3>ChessLytics</h3>
+                                    <p>End-to-end chess analytics platform processing 100,000+ games with personalized Year in Review reports and real-time insights.</p>
+                                    <div class="project-tech">BigQuery, Python, Flask, ETL Pipelines</div>
+                                    <div class="project-links">
+                                        <a href="https://www.chesslytics.xyz" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                                        <a href="https://github.com/edwardl903/chesslyzer" class="project-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card-overlay">
+                    <div class="project-image-cover">
+                        <a href="projects/spotifriend.html">
+                            <img src="static/images/spotifriend-project.jpg" alt="SpotiFriend">
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <h3>SpotiFriend</h3>
+                                    <p>Scalable cloud-based data pipeline analyzing Spotify listening behavior across 10,000+ tracks with real-time SQL queries.</p>
+                                    <div class="project-tech">AWS, Python, S3, Glue, Athena</div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card-overlay">
+                    <div class="project-image-cover">
+                        <a href="projects/etl-tools.html">
+                            <img src="static/images/etl-tools-project.jpg" alt="ETL Tools">
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <h3>ETL Automation Tools</h3>
+                                    <p>Developed ETL tools and automation scripts improving integration efficiency by 40% and reducing manual workload.</p>
+                                    <div class="project-tech">Python, SQL, Google Looker, BigQuery</div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card-overlay">
+                    <div class="project-image-cover">
+                        <a href="projects/eeg-research.html">
+                            <img src="static/images/research-lab-project.jpg" alt="Research Lab">
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <h3>EEG Research Analysis</h3>
+                                    <p>Conducted EEG-based research on human cognition, analyzing neural activity from 20+ participants for strategic thinking studies.</p>
+                                    <div class="project-tech">R, Python, Statistical Analysis, Data Visualization</div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Research</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card-overlay">
+                    <div class="project-image-cover">
+                        <a href="projects/nlp-pipeline.html">
+                            <img src="static/images/nlp-pipeline-project.jpg" alt="NLP Pipeline">
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <h3>NLP Data Pipeline</h3>
+                                    <p>Developed a NLP pipeline for automatic reading-level classification of educational content.</p>
+                                    <div class="project-tech">Python, NLP, Machine Learning, Text Processing, ETL</div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card-overlay">
+                    <div class="project-image-cover">
+                        <a href="projects/movie-recommendations.html">
+                            <img src="static/images/movie-recommendations-project.jpg" alt="Movie Recommendations">
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <h3>Scalable Movie Recommendation Pipeline</h3>
+                                    <p>Built a scalable recommendation system using collaborative filtering algorithms processing millions of user ratings for personalized movie suggestions.</p>
+                                    <div class="project-tech">Python, Collaborative Filtering, Machine Learning, Recommendation Systems, MAE</div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html> 
