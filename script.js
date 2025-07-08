@@ -57,12 +57,70 @@ function typeWriter(element, text, speed = 100) {
     type();
 }
 
+// Typewriter effect for hero roles
+function typewriterEffect() {
+    const typewriterElement = document.querySelector('.typewriter-text');
+    if (!typewriterElement) return;
+    
+    const roles = [
+        "I am a Data Enthusiast",
+        "I am a Data Explorer", 
+        "I am a Data Storyteller",
+    ];
+    
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let currentText = '';
+    
+    function type() {
+        const currentRole = roles[roleIndex];
+        
+        if (isDeleting) {
+            currentText = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            currentText = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        typewriterElement.textContent = currentText;
+        
+        let typeSpeed = isDeleting ? 50 : 100;
+        
+        if (!isDeleting && charIndex === currentRole.length) {
+            typeSpeed = 2000; // Pause at end
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            typeSpeed = 500; // Pause before next word
+        }
+        
+        setTimeout(type, typeSpeed);
+    }
+    
+    type();
+}
+
 // Initialize typing effect when page loads
 window.addEventListener('load', () => {
     const typingElement = document.querySelector('.hero-text p');
     if (typingElement) {
         const originalText = typingElement.textContent;
-        typeWriter(typingElement, originalText, 50);
+        typeWriter(typingElement, originalText, 30);
+        
+        // Calculate when the main text will finish typing
+        const typingDuration = originalText.length * 30; // 30ms per character
+        const delayBeforeTypewriter = typingDuration + 1000; // Add 1 second pause
+        
+        // Start typewriter effect after main text finishes
+        setTimeout(() => {
+            typewriterEffect();
+        }, delayBeforeTypewriter);
+    } else {
+        // If no main text to type, start typewriter immediately
+        typewriterEffect();
     }
 });
 
@@ -154,6 +212,12 @@ function setActiveNavigation() {
 // Initialize active navigation
 setActiveNavigation();
 
+// Initialize cursor effect
+createCursorEffect();
+
+// Initialize click ripple effect
+createClickRipple();
+
 // Particle effect for background
 function createParticles() {
     const particlesContainer = document.createElement('div');
@@ -176,6 +240,111 @@ function createParticles() {
         `;
         particlesContainer.appendChild(particle);
     }
+}
+
+// Custom cursor trail effect
+function createCursorEffect() {
+    // Create main cursor
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    // Create multiple cursor trails
+    const trail1 = document.createElement('div');
+    trail1.className = 'cursor-trail';
+    document.body.appendChild(trail1);
+    
+    const trail2 = document.createElement('div');
+    trail2.className = 'cursor-trail-2';
+    document.body.appendChild(trail2);
+    
+    const trail3 = document.createElement('div');
+    trail3.className = 'cursor-trail-3';
+    document.body.appendChild(trail3);
+    
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let trail1X = 0, trail1Y = 0;
+    let trail2X = 0, trail2Y = 0;
+    let trail3X = 0, trail3Y = 0;
+    
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    // Animate cursor and trails
+    function animateCursor() {
+        // Direct cursor movement (no smoothing for main cursor)
+        cursorX = mouseX;
+        cursorY = mouseY;
+        
+        // Smooth trail movements with different speeds
+        trail1X += (mouseX - trail1X) * 0.08;
+        trail1Y += (mouseY - trail1Y) * 0.08;
+        
+        trail2X += (mouseX - trail2X) * 0.05;
+        trail2Y += (mouseY - trail2Y) * 0.05;
+        
+        trail3X += (mouseX - trail3X) * 0.03;
+        trail3Y += (mouseY - trail3Y) * 0.03;
+        
+        // Update positions
+        cursor.style.left = cursorX - 8 + 'px';
+        cursor.style.top = cursorY - 8 + 'px';
+        
+        trail1.style.left = trail1X - 3 + 'px';
+        trail1.style.top = trail1Y - 3 + 'px';
+        
+        trail2.style.left = trail2X - 2 + 'px';
+        trail2.style.top = trail2Y - 2 + 'px';
+        
+        trail3.style.left = trail3X - 1.5 + 'px';
+        trail3.style.top = trail3Y - 1.5 + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
+    
+    // Enhanced interactive effects
+    const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .btn, .nav-menu a, .hamburger');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(1.5)';
+            cursor.style.background = 'rgba(139, 92, 246, 1)';
+            cursor.style.boxShadow = '0 0 25px rgba(139, 92, 246, 1), inset 0 0 8px rgba(255, 255, 255, 0.6)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.background = 'rgba(139, 92, 246, 1)';
+            cursor.style.boxShadow = '0 0 15px rgba(139, 92, 246, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
+        });
+    });
+}
+
+// Click ripple effect
+function createClickRipple() {
+    document.addEventListener('click', (e) => {
+        // Don't create ripple on interactive elements
+        if (e.target.closest('a, button, input, textarea, select, .btn, .nav-menu, .hamburger')) {
+            return;
+        }
+        
+        // Create ripple element
+        const ripple = document.createElement('div');
+        ripple.className = 'click-ripple';
+        ripple.style.left = e.clientX + 'px';
+        ripple.style.top = e.clientY + 'px';
+        
+        document.body.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+            ripple.remove();
+        }, 800);
+    });
 }
 
 // Add particle animation CSS

@@ -5,6 +5,131 @@
     box-sizing: border-box;
 }
 
+/* Hide default cursor */
+* {
+    cursor: none !important;
+}
+
+/* Custom cursor effects */
+.custom-cursor {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    background: rgba(139, 92, 246, 1);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 
+        0 0 15px rgba(139, 92, 246, 0.8),
+        inset 0 0 5px rgba(255, 255, 255, 0.3);
+    animation: cursorPulse 2s ease-in-out infinite;
+}
+
+@keyframes cursorPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 
+            0 0 15px rgba(139, 92, 246, 0.8),
+            inset 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        transform: scale(1.2);
+        box-shadow: 
+            0 0 25px rgba(139, 92, 246, 1),
+            inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, rgba(139, 92, 246, 0.3) 70%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+.cursor-trail-2 {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.6) 0%, rgba(168, 85, 247, 0.2) 70%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9997;
+    transition: all 0.6s ease;
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
+}
+
+.cursor-trail-3 {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, rgba(196, 181, 253, 0.5) 0%, rgba(196, 181, 253, 0.1) 70%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9996;
+    transition: all 0.8s ease;
+    box-shadow: 0 0 6px rgba(196, 181, 253, 0.2);
+}
+
+.click-ripple {
+    position: fixed;
+    border: 2px solid rgba(139, 92, 246, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9997;
+    animation: rippleEffect 0.8s ease-out forwards;
+}
+
+@keyframes rippleEffect {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Global hover effects */
+.hero-title:hover {
+    animation: titleGlow 0.5s ease-in-out;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
+    50% { text-shadow: 0 0 40px rgba(139, 92, 246, 1), 0 0 60px rgba(139, 92, 246, 0.5); }
+    100% { text-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
+}
+
+.hero-subtitle:hover {
+    color: #a855f7;
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+    transition: all 0.3s ease;
+}
+
+.hero-text p:hover {
+    color: #cccccc;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.hero-image img:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 0 50px rgba(139, 92, 246, 0.6);
+    transition: all 0.4s ease;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background: #0a0a0a;
@@ -827,8 +952,8 @@ body::before {
 
 .hero-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 8rem;
     align-items: center;
 }
 
@@ -857,6 +982,42 @@ body::before {
     font-size: 1.1rem;
     color: #aaaaaa;
     margin-bottom: 2rem;
+}
+
+.typewriter-container {
+    margin-bottom: 2rem;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.typewriter-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #8b5cf6;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    border-right: 3px solid #8b5cf6;
+    animation: blink 1s infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.typewriter-text:hover {
+    color: #a855f7;
+    text-shadow: 
+        0 0 20px rgba(139, 92, 246, 0.8),
+        0 0 40px rgba(139, 92, 246, 0.4),
+        0 0 60px rgba(139, 92, 246, 0.2);
+    transform: scale(1.05);
+    letter-spacing: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { border-color: #8b5cf6; }
+    51%, 100% { border-color: transparent; }
 }
 
 .hero-buttons {
