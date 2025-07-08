@@ -61,6 +61,9 @@
                         <span class="tech-tag">MAE</span>
                     </div>
                     <div class="project-links">
+                        <a href="../static/images/movie-recommendation-project.pdf" class="project-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i> Download Report
+                        </a>
                         <a href="#" class="project-link">
                             <i class="fab fa-github"></i> View Code
                         </a>
@@ -70,111 +73,183 @@
 
             <div class="project-content">
                 <div class="project-section">
-                    <h2>Overview</h2>
-                    <p>This project developed a sophisticated movie recommendation system that leverages collaborative filtering algorithms to provide personalized movie suggestions. The system processes millions of user ratings and employs Mean Absolute Error (MAE) optimization to ensure high-quality recommendations. The scalable architecture allows for efficient processing of large-scale datasets.</p>
-                </div>
-
-                <div class="project-section">
-                    <h2>Key Features</h2>
-                    <ul>
-                        <li><strong>Collaborative Filtering:</strong> Advanced algorithms for user-based and item-based recommendations</li>
-                        <li><strong>Large-Scale Processing:</strong> Handles millions of user ratings efficiently</li>
-                        <li><strong>MAE Optimization:</strong> Mean Absolute Error optimization for improved accuracy</li>
-                        <li><strong>Personalized Suggestions:</strong> Tailored movie recommendations for individual users</li>
-                        <li><strong>Scalable Architecture:</strong> Designed to handle growing datasets and user bases</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Technical Architecture</h2>
-                    <div class="architecture-grid">
-                        <div class="arch-item">
-                            <h3>Data Processing</h3>
-                            <p>Efficient handling of millions of user ratings and movie metadata</p>
-                        </div>
-                        <div class="arch-item">
-                            <h3>Collaborative Filtering</h3>
-                            <p>User-based and item-based recommendation algorithms</p>
-                        </div>
-                        <div class="arch-item">
-                            <h3>MAE Optimization</h3>
-                            <p>Mean Absolute Error optimization for recommendation accuracy</p>
-                        </div>
-                        <div class="arch-item">
-                            <h3>Recommendation Engine</h3>
-                            <p>Scalable engine for generating personalized movie suggestions</p>
-                        </div>
+                    <h2>Part 1: Matrix Factorization Analysis</h2>
+                    
+                    <h3>Figure 1a: Training and Validation RMSE vs. Training Steps</h3>
+                    <div class="image-placeholder">
+                        <p>[Figure 1a: Training and Validation RMSE plots for different K values]</p>
                     </div>
-                </div>
+                    
+                    <h4>Analysis:</h4>
+                    <p><strong>(i) What happens as K increases in terms of under- or over-fitting?</strong></p>
+                    <p>As K increases, the model starts overfitting because the training RMSE values get lower at larger K values. Meanwhile, the validation RMSE is higher at larger K values, indicating a loss of generalization on unknown data.</p>
+                    
+                    <p><strong>(ii) How does the 'best' validation-set performance change from K=2 to 10 to 50?</strong></p>
+                    <p>The "best" validation-set performance decreases slightly as we increase the K value. At K=2, the lowest validation RMSE is 0.930, at K=10 the lowest validation RMSE is 0.923, and at K=50 the lowest validation RMSE is 0.919. This makes sense because increasing K should make the model more accurate at some point compared to models with smaller K values before beginning to overfit as training goes on.</p>
+                    
+                    <p><strong>(iii) What step size? Why did you pick that value?</strong></p>
+                    <p>We chose step size 0.8 because it was at this step size that the graphs started to look more stable and not diverge. We started by testing larger step size values such as 5.0 and 2.0 which showed divergence, then incrementally decreased the step size to get to a point where there was no divergence and the graph did not have many sharp peaks/valleys, which happened around 0.8.</p>
 
-                <div class="project-section">
-                    <h2>Algorithm Implementation</h2>
-                    <ul>
-                        <li><strong>User-Based Collaborative Filtering:</strong> Finds similar users and recommends movies they liked</li>
-                        <li><strong>Item-Based Collaborative Filtering:</strong> Identifies similar movies based on user preferences</li>
-                        <li><strong>Matrix Factorization:</strong> Advanced techniques for handling sparse rating matrices</li>
-                        <li><strong>MAE Evaluation:</strong> Comprehensive evaluation using Mean Absolute Error metrics</li>
-                        <li><strong>Performance Optimization:</strong> Efficient algorithms for large-scale processing</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Challenges & Solutions</h2>
-                    <div class="challenge-item">
-                        <h3>Challenge: Cold Start Problem</h3>
-                        <p>Providing accurate recommendations for new users with limited rating history.</p>
-                        <p><strong>Solution:</strong> Implemented hybrid approaches combining collaborative filtering with content-based methods and popular item recommendations.</p>
+                    <h3>Figure 1b: Training and Validation RMSE with Regularization</h3>
+                    <div class="image-placeholder">
+                        <p>[Figure 1b: Training and Validation RMSE plots with different alpha values]</p>
                     </div>
-                    <div class="challenge-item">
-                        <h3>Challenge: Scalability</h3>
-                        <p>Processing millions of ratings efficiently while maintaining recommendation quality.</p>
-                        <p><strong>Solution:</strong> Built scalable architecture with optimized algorithms, efficient data structures, and parallel processing capabilities.</p>
+                    
+                    <h4>Analysis:</h4>
+                    <p><strong>(i) What value of alpha? How did you select it?</strong></p>
+                    <p>We picked an alpha value of 0.5. We selected it by generating plots for several different alpha values: [0.0, 0.1, 0.3, 0.5, 1.0], using different step sizes as well. We observed that at alphas 0.0, 0.1, and 0.3 the training RMSE was still decreasing as training went on which meant that the model was still overfitting. Alpha 0.5 was the point at which the training RMSE plateaued and wasn't decreasing as training went on, so the model didn't overfit.</p>
+                    
+                    <p><strong>(ii) What value of step size did you pick?</strong></p>
+                    <p>We picked a step size of 0.8. We selected it by generating plots for several different step size values: [0.7, 0.8, 0.9, 1.0]. We observed different combinations of alpha and step size pairs and saw that at alpha=0.5 the model wasn't overfitting, and step size 0.8 was when the model started looking more stable without divergence and large peaks/valleys in the graph (compared to the larger step sizes of 0.9 and 1.0).</p>
+                    
+                    <p><strong>(iii) Did you get better validation-set error with this alpha than you did with the K=50, alpha=0 result in 1a?</strong></p>
+                    <p>The lowest validation RMSE value with alpha=0.0 (0.919) is still lower than the lowest validation RMSE value with alpha=0.5 (0.947). However, as training goes on the validation RMSE with alpha=0.0 gets worse due to overfitting while validation RMSE with alpha=0.5 does not decrease and stays relatively the same. This means that the final validation error is better with alpha=0.5 than alpha=0.0, meaning that model has better generalization.</p>
+
+                    <h3>Table 1c: Performance Comparison</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>K</th>
+                                    <th>Alpha</th>
+                                    <th>Best RMSE</th>
+                                    <th>Best MAE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2</td>
+                                    <td>0</td>
+                                    <td>0.930</td>
+                                    <td>0.731</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>0.923</td>
+                                    <td>0.724</td>
+                                </tr>
+                                <tr>
+                                    <td>50</td>
+                                    <td>0</td>
+                                    <td>0.919</td>
+                                    <td>0.725</td>
+                                </tr>
+                                <tr>
+                                    <td>50</td>
+                                    <td>0.5</td>
+                                    <td>0.947</td>
+                                    <td>0.746</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    
+                    <h4>Analysis:</h4>
+                    <p><strong>(i) Focusing on RMSE, how many factors K do you recommend?</strong></p>
+                    <p>K=50 because it has the lowest RMSE value of 0.919 when alpha=0.</p>
+                    
+                    <p><strong>(ii) Does model ranking change if you were to use MAE instead of RMSE?</strong></p>
+                    <p>Yes, the model ranking changes to K = 10 being the best model when using MAE instead of RMSE because that model has the lowest MAE of 0.724.</p>
+
+                    <h3>Figure 1d: Movie Embedding Visualization</h3>
+                    <div class="image-placeholder">
+                        <p>[Figure 1d: 2D visualization of movie embeddings showing clustering by genre]</p>
+                    </div>
+                    
+                    <h4>Analysis:</h4>
+                    <p><strong>Do you notice any interpretable trends? What makes sense? What does not make sense to you?</strong></p>
+                    <p>One trend is that movies of similar genres seem to be grouped together. For example, in the upper left corner there are many action/adventure movies such as Raiders of the Lost Ark, Return of the Jedi, Jurassic Park, Indiana Jones, and Star Wars. In the bottom right corner, there are some spooky movies like Nightmare Before Christmas and The Shining. The middle contains several romance and comedy movies, and children's movies like Toy Story, Lion King, etc. are also close together. It makes sense that the movies would be grouped by genre because they would share similar traits and patterns that the model can pick up on, and also users who like one movie in a genre are likely to rate others similarly, which encourages clustering.</p>
+                    
+                    <p>However there are some outliers that go against that trend, such as the Scream movies and A Nightmare on Elm Street which are scattered around the middle of the graph. Another thing that's strange is that movies in the same franchise aren't that close together, like the Indiana Jones, Star Wars, Jurassic Park, and Scream movies.</p>
                 </div>
 
                 <div class="project-section">
-                    <h2>Results & Impact</h2>
+                    <h2>Part 2: SVD++ Implementation</h2>
+                    
+                    <h3>2a: SVD++ Algorithm and Hyperparameter Tuning</h3>
+                    <p>For this project, we used the SVD++ algorithm from the Surprise Library to predict user ratings. SVD++ works by extending SVD, which uses matrix factorization to decompose the original matrix into three matrices to reduce dimensions and make the data easier to interpret. SVD++ takes into account implicit ratings by incorporating which items a user interacts with. Because the MovieLens dataset is relatively sparse, SVD++ is a good choice because it can incorporate both explicit ratings and implicit feedback from which movies users rated/interacted with.</p>
+                    
+                    <p>To optimize model performance, we performed hyperparameter tuning using RandomizedSearchCV over the following parameters:</p>
                     <ul>
-                        <li>Successfully processed millions of user ratings</li>
-                        <li>Implemented accurate collaborative filtering algorithms</li>
-                        <li>Achieved optimized MAE scores for recommendation quality</li>
-                        <li>Built scalable recommendation pipeline</li>
-                        <li>Provided personalized movie suggestions for users</li>
-                        <li>Demonstrated effective handling of large-scale datasets</li>
+                        <li><strong>n_factors</strong> (number of hidden factors) = [150, 175, 200, 225, 250]</li>
+                        <li><strong>lr_all</strong> (learning rate for all parameters) = [0.010, 0.012, 0.013, 0.014, 0.015, 0.016]</li>
+                        <li><strong>reg_all</strong> (regularization strength for all parameters) = [0.05, 0.07, 0.08, 0.1, 0.12]</li>
                     </ul>
+                    
+                    <p>We also performed 50 iterations using random combinations of the hyperparameters, ran RandomizedSearchCV with all cores to speed up the search, set random state = 42 for debugging purposes, and used a 5-fold cross-validation strategy to ensure reliable performance estimates and reduce any risk of overfitting. For a 5-fold CV, each fold size is approximately 20,000 ratings (100,000 divided by 5) with the training set for each fold as 80,000 ratings and the validation set for each fold as 20,000 ratings. Each fold is split evenly at random.</p>
+                    
+                    <p>Our evaluation metric was MAE, which measures how closely predicted ratings match actual ratings on average. After retrieving best hyperparameters from RandomizedSearchCV, we retrained the final model on the full ratings masked leaderboard set. All predictions were clipped to valid rating range [1, 5] and additionally we rounded the predicted ratings to the nearest integer after clipping. We saw an improved leaderboard MAE performance with rounding, going against our initial intuition to include many decimal points for prediction precision. The improvement from the rounding to nearest integer is likely due to the true ratings also being integers, so rounding would prevent unnecessary penalty from small prediction errors.</p>
+
+                    <h3>2b: Hyperparameter Tuning Results</h3>
+                    <div class="image-placeholder">
+                        <p>[Figure 2b: Hyperparameter tuning results showing MAE across different configurations]</p>
+                    </div>
+                    
+                    <p><strong>Caption:</strong> Each point corresponds to a different combination of hyperparameters (n_factors, lr_all, reg_all). This figure shows that different configurations can significantly impact valid MAE. Additionally, this reflects the importance of hyperparameter tuning and shows no signs of overfitting or underfitting during model selection. The selection returned n_factors=150, lr_all=0.012, reg_all=0.07 with the lowest MAE value of 0.7233. The MAE varies between approximately 0.723 and 0.732 across trials, showing no underfitting because some hyperparameter combinations do perform well and better than others. There is no indication of overfitting, as the validation MAE remains stable across trials without extreme fluctuations or outliers with very low values.</p>
+
+                    <h3>2c: Performance Analysis</h3>
+                    <p><strong>(i) Discuss how your leaderboard number compares to performances on the provided test split of the dev set.</strong></p>
+                    <p>The SVD++ model achieved a dev set test MAE of 0.4899 but the leaderboard MAE was 0.668 which is a noticeable increase. This gap suggests some degree of overfitting to the dev set. This could be due to the leaderboard having noisier data than our development test set. Another reason for this could be that the leaderboard contains users or items that were not well-represented in the development set, making predictions harder.</p>
+                    
+                    <p><strong>(ii) Compare contrast Part 1 and Part 2 solutions</strong></p>
+                    <p>Part 1 focused on matrix factorization methods which optimizes mainly the number of latent factors k. In contrast, part 2 incorporated implicit feedback and was fine tuned over multiple hyperparameters (latent dimensions, learning rate, and regularization strength) with the addition of cross-validation to ensure reliability of results. As a result, part 2 solution generalized much better and achieved a lower MAE both in development testing set and on the leaderboard.</p>
+
+                    <h3>MAE Performance Table</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Dev Set Test MAE</th>
+                                    <th>Leaderboard MAE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SVD++</td>
+                                    <td>0.490</td>
+                                    <td>0.6684</td>
+                                </tr>
+                                <tr>
+                                    <td>K=10 MF</td>
+                                    <td>0.724</td>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <td>GradientBoosting</td>
+                                    <td>0.533</td>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <td>XGBoost</td>
+                                    <td>0.512</td>
+                                    <td>N/A</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2d: Approach Analysis</h3>
+                    <p><strong>Overall pros and cons of your current approach. What other kinds of recommendation problems would it work well for? What are its limitations?</strong></p>
+                    <p>The SVD++ model worked well because it used both explicit ratings and implicit user-item interactions. This led to making it very effective for sparse, user-item matrix recommendation problems like MovieLens. The main strength of SVD++ lies in its ability to generalize reasonably well to unseen data when properly tuned. However, the biggest con for SVD++ was its expensive computation. It took around 20 minutes of compute time to complete RandomizedSearchCV and achieve the lowest validation MAE. Furthermore, one limitation of SVD++ is that it is slow to train. This is amplified when we increase the number of hyperparameter trials or increase the size of the data set. Using this approach, this model assumes that user preferences can be captured through linear interactions of latent factors; this may not be well-suited for very complex datasets. Additionally, this model would not work as well for problems where users or items have no interactions.</p>
+                </div>
+
+                <div class="project-section">
+                    <h2>Key Learnings & Reflections</h2>
+                    <p><strong>What are the key takeaway lessons you learned?</strong></p>
+                    <p>My biggest key takeaway lessons that I learned is how critical hyperparameter tuning, cross-validation, and model selection is to achieving a strong generalization in machine learning. With countless terrible leaderboard submissions, this project also helped highlight that a good dev set performance does not always guarantee leaderboard success. I can aim for better generalization by being wary about the risks of overfitting and having thoughtful considerations on how to handle model complexity. I also learned some very cool preprocessing steps techniques such as clipping and rounding predictions that can have a huge impact on certain evaluation metrics. Overall, this project helped me understand recommendation system pipelines, the common pitfalls in modelling, and several practical evaluation techniques.</p>
                 </div>
 
                 <div class="project-section">
                     <h2>Technical Implementation</h2>
                     <ul>
-                        <li><strong>Python Framework:</strong> Comprehensive machine learning implementation with NumPy and Pandas</li>
-                        <li><strong>Collaborative Filtering:</strong> Custom implementation of user-based and item-based algorithms</li>
-                        <li><strong>MAE Optimization:</strong> Systematic optimization of recommendation accuracy</li>
-                        <li><strong>Data Processing:</strong> Efficient handling of large-scale rating datasets</li>
-                        <li><strong>Performance Tuning:</strong> Optimized algorithms for speed and accuracy</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Evaluation Metrics</h2>
-                    <ul>
-                        <li><strong>Mean Absolute Error (MAE):</strong> Primary metric for recommendation accuracy</li>
-                        <li><strong>Precision and Recall:</strong> Evaluation of recommendation relevance</li>
-                        <li><strong>Coverage:</strong> Assessment of recommendation diversity</li>
-                        <li><strong>Scalability Testing:</strong> Performance evaluation with large datasets</li>
-                        <li><strong>User Satisfaction Metrics:</strong> Qualitative assessment of recommendation quality</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Future Enhancements</h2>
-                    <ul>
-                        <li>Deep learning models for improved recommendation accuracy</li>
-                        <li>Real-time recommendation updates based on user behavior</li>
-                        <li>Multi-modal recommendations incorporating movie content analysis</li>
-                        <li>Integration with streaming platforms and movie databases</li>
-                        <li>Advanced personalization features based on viewing context</li>
-                        <li>Social recommendation features incorporating friend preferences</li>
+                        <li><strong>Open-source tools used:</strong> Surprise (SVD++ model, hyperparameter tuning), Pandas and NumPy for data manipulation, Matplotlib for visualization</li>
+                        <li><strong>Matrix Factorization:</strong> Custom implementation of K-factor matrix factorization with regularization</li>
+                        <li><strong>SVD++ Algorithm:</strong> Advanced collaborative filtering with implicit feedback</li>
+                        <li><strong>Hyperparameter Tuning:</strong> RandomizedSearchCV with 5-fold cross-validation</li>
+                        <li><strong>Evaluation Metrics:</strong> MAE and RMSE for comprehensive performance assessment</li>
+                        <li><strong>Data Preprocessing:</strong> Rating clipping and rounding for improved performance</li>
                     </ul>
                 </div>
             </div>

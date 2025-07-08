@@ -199,6 +199,142 @@ document.head.appendChild(style);
 // Initialize particles
 createParticles();
 
+// Contact Form Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // Get form data
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Validate form
+            if (!validateForm(name, email, message)) {
+                e.preventDefault(); // Prevent submission if validation fails
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-flex';
+            submitBtn.disabled = true;
+            
+            // Let the form submit to Formspree
+            // Formspree will handle the email sending
+            // Show success message immediately
+            setTimeout(() => {
+                // Hide form and show success message
+                contactForm.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Reset form
+                contactForm.reset();
+                clearErrors();
+                
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            }, 500);
+        });
+    }
+    
+    // Form validation
+    function validateForm(name, email, message) {
+        let isValid = true;
+        clearErrors();
+        
+        // Name validation
+        if (!name || name.trim().length < 2) {
+            showError('nameError', 'Please enter a valid name (at least 2 characters)');
+            isValid = false;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            showError('emailError', 'Please enter a valid email address');
+            isValid = false;
+        }
+        
+        // Message validation
+        if (!message || message.trim().length < 10) {
+            showError('messageError', 'Please enter a message (at least 10 characters)');
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.textContent = message;
+        }
+    }
+    
+    function clearErrors() {
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(element => {
+            element.textContent = '';
+        });
+    }
+    
+    // Real-time validation
+    const inputs = document.querySelectorAll('.contact-form input, .contact-form select, .contact-form textarea');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+            // Clear error when user starts typing
+            const errorId = this.id + 'Error';
+            const errorElement = document.getElementById(errorId);
+            if (errorElement && errorElement.textContent) {
+                errorElement.textContent = '';
+            }
+        });
+    });
+    
+    function validateField(field) {
+        const value = field.value.trim();
+        const errorId = field.id + 'Error';
+        
+        switch (field.id) {
+            case 'name':
+                if (!value || value.length < 2) {
+                    showError(errorId, 'Please enter a valid name (at least 2 characters)');
+                }
+                break;
+            case 'email':
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!value || !emailRegex.test(value)) {
+                    showError(errorId, 'Please enter a valid email address');
+                }
+                break;
+            case 'subject':
+                if (!value) {
+                    showError(errorId, 'Please select a subject');
+                }
+                break;
+            case 'message':
+                if (!value || value.length < 10) {
+                    showError(errorId, 'Please enter a message (at least 10 characters)');
+                }
+                break;
+        }
+    }
+});
+
 // Glitch effect for hero title
 function addGlitchEffect() {
     const heroTitle = document.querySelector('.hero-title');

@@ -52,12 +52,16 @@
                 </div>
                 <div class="project-info">
                     <h1>ChessLytics</h1>
-                    <p class="project-description">End-to-end chess analytics platform processing 100,000+ games with personalized Year in Review reports and real-time insights.</p>
+                    <p class="project-description">Multi-cloud chess analytics platform processing 30GB+ of games with personalized Year in Review reports, community trend analysis, and interactive Power BI dashboards.</p>
                     <div class="project-tech">
-                        <span class="tech-tag">BigQuery</span>
-                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Azure Data Lake</span>
+                        <span class="tech-tag">PySpark</span>
+                        <span class="tech-tag">Databricks</span>
+                        <span class="tech-tag">Delta Lake</span>
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">GCP BigQuery</span>
                         <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">ETL Pipelines</span>
+                        <span class="tech-tag">REST APIs</span>
                     </div>
                     <div class="project-links">
                         <a href="https://www.chesslytics.xyz" class="project-link" target="_blank">
@@ -73,17 +77,18 @@
             <div class="project-content">
                 <div class="project-section">
                     <h2>Overview</h2>
-                    <p>ChessLytics is a comprehensive chess analytics platform that processes and analyzes chess games to provide players with detailed insights into their playing patterns, strengths, and areas for improvement. The platform handles over 100,000 games and generates personalized Year in Review reports for users.</p>
+                    <p>ChessLytics was born from my frustration as a competitive chess player with the lack of comprehensive analytics tools in the chess community. Inspired by Spotify's Year in Review, I set out to create my own chess analytics platform that could provide deep insights into playing patterns and trends. What started as a personal project evolved into a sophisticated multi-cloud data engineering and analytics platform processing millions of games.</p>
                 </div>
 
                 <div class="project-section">
                     <h2>Key Features</h2>
                     <ul>
-                        <li><strong>Game Processing:</strong> Automated ETL pipeline processing 100,000+ chess games</li>
-                        <li><strong>Personalized Reports:</strong> Year in Review analytics with detailed statistics</li>
-                        <li><strong>Real-time Insights:</strong> Live analytics dashboard with current performance metrics</li>
-                        <li><strong>Opening Analysis:</strong> Detailed breakdown of opening performance and preferences</li>
-                        <li><strong>Performance Tracking:</strong> Rating progression and game outcome analysis</li>
+                        <li><strong>Personalized Analytics:</strong> Individual player statistics and Year in Review reports</li>
+                        <li><strong>Massive Data Processing:</strong> Multi-cloud architecture handling 30GB+ of chess games</li>
+                        <li><strong>Trend Analysis:</strong> Community-wide insights and chess trend identification</li>
+                        <li><strong>Interactive Dashboard:</strong> Power BI visualizations for comprehensive data exploration</li>
+                        <li><strong>Multi-Platform Integration:</strong> Support for both Chess.com and Lichess data sources</li>
+                        <li><strong>Scalable Architecture:</strong> Hybrid cloud solution with Azure and GCP</li>
                     </ul>
                 </div>
 
@@ -91,20 +96,28 @@
                     <h2>Technical Architecture</h2>
                     <div class="architecture-grid">
                         <div class="arch-item">
-                            <h3>Data Pipeline</h3>
-                            <p>ETL pipeline built with Python and BigQuery for efficient processing of large chess datasets</p>
+                            <h3>Data Ingestion</h3>
+                            <p>REST APIs for Chess.com data and Lichess compressed files (30GB+) for comprehensive game collection</p>
                         </div>
                         <div class="arch-item">
-                            <h3>Web Application</h3>
-                            <p>Flask-based web application serving analytics and reports to users</p>
+                            <h3>Data Processing</h3>
+                            <p>PySpark on Databricks clusters for scalable processing of millions of chess games</p>
                         </div>
                         <div class="arch-item">
                             <h3>Data Storage</h3>
-                            <p>BigQuery for scalable data warehousing and complex analytical queries</p>
+                            <p>Azure Data Lake Storage for raw data and Delta Lake for processed, clean datasets</p>
                         </div>
                         <div class="arch-item">
-                            <h3>Analytics Engine</h3>
-                            <p>Custom analytics engine for generating personalized insights and reports</p>
+                            <h3>Analytics Platform</h3>
+                            <p>Power BI for interactive visualizations and GCP BigQuery for additional analytics</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Web Application</h3>
+                            <p>Flask-based application with automated data cleaning and user dashboard generation</p>
+                        </div>
+                        <div class="arch-item">
+                            <h3>Multi-Cloud Integration</h3>
+                            <p>Hybrid architecture combining Azure for big data processing and GCP for analytics</p>
                         </div>
                     </div>
                 </div>
@@ -112,34 +125,60 @@
                 <div class="project-section">
                     <h2>Challenges & Solutions</h2>
                     <div class="challenge-item">
-                        <h3>Challenge: Processing Large Datasets</h3>
-                        <p>Handling 100,000+ games efficiently while maintaining fast query performance.</p>
-                        <p><strong>Solution:</strong> Implemented optimized ETL pipelines with BigQuery for scalable data processing and efficient querying.</p>
+                        <h3>Challenge: Data Collection at Scale</h3>
+                        <p>Initially used web scraping with BeautifulSoup and Selenium, but it was slow and not scalable for processing millions of games.</p>
+                        <p><strong>Solution:</strong> Discovered and implemented Chess.com REST APIs for user-specific data and Lichess compressed files for community-wide analysis, enabling efficient collection of 30GB+ of chess games.</p>
                     </div>
                     <div class="challenge-item">
-                        <h3>Challenge: Real-time Analytics</h3>
-                        <p>Providing real-time insights while maintaining data accuracy and performance.</p>
-                        <p><strong>Solution:</strong> Built a caching layer and optimized database queries for fast response times.</p>
+                        <h3>Challenge: API Rate Limiting</h3>
+                        <p>Chess.com APIs had strict rate limits that constrained how extensively I could use them for data collection.</p>
+                        <p><strong>Solution:</strong> Implemented intelligent rate limiting and caching strategies, and supplemented with Lichess data for comprehensive analysis.</p>
+                    </div>
+                    <div class="challenge-item">
+                        <h3>Challenge: Processing Massive Datasets</h3>
+                        <p>Processing 30GB+ of compressed chess games required significant computational resources and efficient data processing techniques.</p>
+                        <p><strong>Solution:</strong> Migrated to a multi-cloud hybrid architecture using Azure Data Lake Storage, PySpark on Databricks clusters, and Delta Lake for efficient big data processing.</p>
+                    </div>
+                    <div class="challenge-item">
+                        <h3>Challenge: Real-time User Analytics</h3>
+                        <p>Providing personalized analytics for individual users while maintaining performance with large-scale community data.</p>
+                        <p><strong>Solution:</strong> Built a Flask application with automated data cleaning pipelines, integrated with GCP BigQuery for analytics, and Power BI for interactive visualizations.</p>
                     </div>
                 </div>
 
                 <div class="project-section">
                     <h2>Results & Impact</h2>
                     <ul>
-                        <li>Successfully processed and analyzed 100,000+ chess games</li>
-                        <li>Generated personalized Year in Review reports for users</li>
-                        <li>Provided real-time analytics dashboard with performance insights</li>
-                        <li>Improved user understanding of their chess playing patterns</li>
+                        <li><strong>Massive Data Processing:</strong> Successfully processed 30GB+ of compressed chess games from Lichess</li>
+                        <li><strong>Multi-Platform Integration:</strong> Built comprehensive data pipeline handling both Chess.com and Lichess data sources</li>
+                        <li><strong>Scalable Architecture:</strong> Implemented hybrid cloud solution with Azure Data Lake Storage and GCP BigQuery</li>
+                        <li><strong>Advanced Analytics:</strong> Created interactive Power BI dashboards for trend analysis and community insights</li>
+                        <li><strong>Personalized Experience:</strong> Generated individual Year in Review reports with automated data cleaning</li>
+                        <li><strong>Community Impact:</strong> Provided insights into chess trends and patterns across millions of games</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h2>Technical Implementation Details</h2>
+                    <ul>
+                        <li><strong>Data Collection:</strong> REST APIs for Chess.com user data, Lichess compressed files for community analysis</li>
+                        <li><strong>Big Data Processing:</strong> PySpark on Databricks clusters for scalable processing of millions of games</li>
+                        <li><strong>Data Storage:</strong> Azure Data Lake Storage for raw data, Delta Lake for processed datasets</li>
+                        <li><strong>Analytics Platform:</strong> Power BI for interactive visualizations, GCP BigQuery for additional analytics</li>
+                        <li><strong>Web Application:</strong> Flask with automated data cleaning and user dashboard generation</li>
+                        <li><strong>Cloud Architecture:</strong> Hybrid multi-cloud solution combining Azure and GCP services</li>
                     </ul>
                 </div>
 
                 <div class="project-section">
                     <h2>Future Enhancements</h2>
                     <ul>
-                        <li>Machine learning models for game outcome prediction</li>
-                        <li>Advanced opening repertoire analysis</li>
-                        <li>Social features for comparing with friends</li>
-                        <li>Mobile application for on-the-go analytics</li>
+                        <li>Machine learning models for game outcome prediction and opening recommendations</li>
+                        <li>Real-time streaming analytics for live game analysis</li>
+                        <li>Advanced social features for comparing with friends and community trends</li>
+                        <li>Mobile application for on-the-go analytics and notifications</li>
+                        <li>Integration with additional chess platforms and tournament data</li>
+                        <li>Advanced AI-powered insights and personalized coaching recommendations</li>
                     </ul>
                 </div>
             </div>

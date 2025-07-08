@@ -61,6 +61,9 @@
                         <span class="tech-tag">ETL</span>
                     </div>
                     <div class="project-links">
+                        <a href="../static/images/nlp-pipeline-project.pdf" class="project-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i> Download Report
+                        </a>
                         <a href="#" class="project-link">
                             <i class="fab fa-github"></i> View Code
                         </a>
@@ -70,100 +73,84 @@
 
             <div class="project-content">
                 <div class="project-section">
-                    <h2>Overview</h2>
-                    <p>This project developed a comprehensive Natural Language Processing (NLP) pipeline designed to automatically classify educational content by reading level. The system processes thousands of documents and applies machine learning models to determine appropriate reading difficulty levels, making educational content more accessible and appropriately targeted.</p>
+                    <h2>Part 1: Bag-of-Words Classification</h2>
+                    
+                    <h3>1A: Bag-of-Words Design Decision</h3>
+                    <p>To convert each passage into numerical features for classification, we used a Bag-of-Words (BoW) representation implemented via scikit-learn's TfidfVectorizer which uses TF-IDF features instead of counts or binary values to improve our AUROC value.</p>
+                    
+                    <p>As a preprocessing step, we made all text lowercase using pandas.Series.str.lower() and also setting lowercase=True in the vectorizer. We did not manually remove punctuation, but relied on TfidfVectorizer's built-in tokenizer to handle this. To reduce noise and improve generalization, we excluded stopwords (e.g. "the," "a," "is," "and," and "in") by setting stop_words='english' in the vectorizer, and applied document frequency thresholds (min_df=3, max_df=0.8). This removed very rare terms (which might lead to overfitting) and overly frequent ones (since they won't give us reliable info in the prediction). We set the ngram range to use unigrams to consider each word individually. We also used regex in the token pattern setting to remove non-alphanumeric characters as they wouldn't affect the reading level as much. To ensure that words that appear more frequently don't become more important and have more influence than words that don't, we set sublinear_tf and binary to true.</p>
+                    
+                    <p>Our final vocabulary size was 9414 terms. Since TfidfVectorizer builds vocabulary solely from training data, any out-of-vocabulary (OOV) words in the test set are ignored automatically at prediction time. All components were implemented using existing tools from the scikit-learn library.</p>
+
+                    <h3>1B: Cross Validation Design</h3>
+                    <p>The performance metric we used to optimize on heldout data is AUROC on the train set. To select hyperparameters and estimate generalization performance, we used 5-fold cross-validation via GridSearchCV. The data was randomly shuffled into five folds, each containing approximately 20% of the training set for validation and 80% for training.</p>
+                    
+                    <p>After identifying the best hyperparameter (best C value: 0.001) via mean AUROC across folds, we refit a final model on the entire training set with that configuration. This final model was used to generate predictions for the test set. All cross-validation and grid search procedures were implemented using existing tools from the scikit-learn.</p>
+
+                    <h3>1C: Hyperparameter Selection for Logistic Regression Classifier</h3>
+                    <p>For the classifier we used Logistic Regression with the BoW pipeline from 1A and the cross-validation design from 1B. Logistic Regression performs well on high-dimensional and sparse data, such as Bag-of-Words representations. It provides probabilistic outputs, which can be useful for ranking and threshold tuning, especially when evaluating performance using AUROC. Compared to other classifiers, Logistic Regression is simpler and easier to interpret, making it a good fit for understanding which words contribute to reading-level classification.</p>
+                    
+                    <p>The hyperparameter we were searching for in our classifier was C, which controls the inverse strength of L2 regularization. Smaller C values can lead to stronger regularization and help prevent overfitting, while larger C values can lead to overfitting because the model will fit the training data more closely. We selected a logarithmically spaced grid of 9 values from 1e-4 to 1e4 to capture a wide spectrum from underfitting to overfitting and find the optimal balance.</p>
+                    
+                    <p>We used scikit-learn's liblinear solver, which is optimal for small to medium-sized datasets and supports L2 regularization. There were no convergence issues during training. Early stopping was not needed since logistic regression training is convex.</p>
+                    
+                    <p><strong>Results:</strong> The best performance was achieved with C=0.001, which produced a mean AUROC of approximately 0.7240 on the heldout set.</p>
+
+                    <h3>1D: Analysis of Predictions for the Best Classifier</h3>
+                    <p>Our classifier showed a strong bias toward predicting the lower-level class over the upper-level class. This can be seen from the confusion matrix, where TN is greater than TP. Our analysis revealed that classifying longer documents was marginally more accurate than classifying shorter documents (~0.02% more accurate) which means that the length of the document doesn't matter too much in how accurate the predictions are. This is because our classifier focuses more on what types of words are present in the text, not the frequency of the words.</p>
+                    
+                    <p>When analyzing errors by the author, we observed that the classifier struggled most with literary or abstract writers such as Franz Kafka, Thomas Hardy, and Gustave Flaubert, who write more about complex and metaphorical topics which are supposed to make the reader think about a deeper meaning. Conversely, the classifier performed very well on authors like Lewis Carroll, Hugh Lofting, and Margaret Sidney, who write stories more for younger audiences like children, which makes sense since they often use simpler vocab and grammar, and have a clearer sentence structure that aligns with patterns our classifier can predict on. Overall, our model performed better on simpler material (e.g. children's literature or stories) rather than more metaphorical and complex pieces.</p>
+
+                    <h3>1E: Report Performance on Test Set via Leaderboard</h3>
+                    <p>Using the final pipeline with C = 0.001, we retrained the logistic regression model on the entire training set and applied it to the test passages from x_test.csv. The predicted probabilities were saved to a one-column plain-text file named yproba1_test.txt and submitted to the leaderboard.</p>
+                    
+                    <p><strong>Leaderboard Submission Result:</strong> Our final test set AUROC was 0.67605 on the leaderboard, which is slightly lower than the cross-validation performance on the heldout data (mean AUROC ~0.7240). This slight drop suggests our cross-validation process provided a reasonably accurate estimate of generalization ability, though it may have slightly overestimated due to overlap in style or structure between CV folds. The difference could also stem from stylistic differences between the training and test sets, or from natural variation in passage complexity. Overall, the hyperparameter search and CV design were effective in guiding model selection.</p>
                 </div>
 
                 <div class="project-section">
-                    <h2>Key Features</h2>
+                    <h2>Part 2: Open-ended Challenge with BERT</h2>
+                    
+                    <h3>2A: Feature Representation Description</h3>
+                    <p>For Problem 2, we used BERT-based document embeddings provided in the starter code as our feature representation. Specifically, we loaded from x_train_BERT_embeddings.npz, where each row corresponds to a passage in x_train.csv. These embeddings are generated by a pretrained BERT model. Unlike the BoW approach in Problem 1, which relies on simple word count frequencies, BERT embeddings are dense and use surrounding words to contextualize a word's meaning, so they can generalize better. The embeddings were used directly as input to our classifier without any additional preprocessing or feature engineering, allowing us to take advantage of BERT's expressive power out of the box.</p>
+
+                    <h3>2B: Cross Validation Description</h3>
+                    <p>To evaluate generalization performance and tune hyperparameters, we used RandomizedSearchCV with 5-fold stratified cross-validation to ensure balanced label distribution in each fold. In contrast to problem 1B, we opted for randomized search over grid search to reduce training time. Grid search might have provided more exhaustive results, but it takes much longer. All model development and tuning were conducted exclusively on the training data (x_train.csv and y_train.csv). After selecting the best hyperparameters, we retrained the model on the full training split and evaluated it on a separate 20% held-out validation set that was not used during training or tuning. This setup allowed us to obtain a more reliable estimate of the model's performance on unseen data using AUROC.</p>
+
+                    <h3>2C: Classifier Description with Hyperparameter Search</h3>
+                    <p>We selected a random forest classifier (using the RandomForestClassifier from scikit-learn) due to its speed, effectiveness, and interpretability with dense feature vectors like BERT embeddings.</p>
+                    
+                    <p>We tuned the max_depth hyperparameter, which controls tree complexity and influences overfitting. A smaller max_depth can reduce overfitting but may underfit the data, while a larger max_depth can have poor generalization and overfit the data. Our search used RandomizedSearchCV with 5-fold stratified CV, exploring the following grid:</p>
+                    
+                    <pre><code>param_grid = {
+    'max_depth': [1, 2, 3, 4, 5, 10, 15, 20, 30, None],
+    'n_estimators': [300],
+    'max_features': ['sqrt'],
+    'min_samples_split': [2],
+    'min_samples_leaf': [1]
+}</code></pre>
+                    
+                    <p>We used 10 iterations of randomized search and selected the configuration that maximized AUROC on the validation folds. The best model achieved a validation AUROC of 0.7262. The plot shows that validation AUROC peaks around max_depth=10 before slightly declining, indicating overfitting at deeper depths. This confirms that tuning max_depth is essential for balancing bias and variance in random forest models trained on BERT features.</p>
+
+                    <h3>2D: Error Analysis</h3>
+                    <p>The confusion matrix shows that the classifier slightly favors the upper-level class, since TN is greater than TP. This differs from the Problem 1 model, which under-predicted the upper class. The change may reflect the improved representation power of BERT and contextualization, allowing the classifier to better identify complex passages. The validation set TPR (recall for upper-level) was 0.713, while the TNR (recall for lower-level) was 0.674, showing a bias toward identifying difficult texts. This confusion matrix is not directly comparable to Problem 1's, since it was generated from a held-out validation split rather than a cross-validation fold.</p>
+
+                    <h3>2E: Report Performance on Test Set via Leaderboard</h3>
+                    <p>Using the best configuration from our cross-validation procedure, we retrained the RandomForestClassifier on the full training set and generated probabilistic predictions for the test set using the BERT embeddings. The predictions were saved to yproba2_test.txt and submitted to the leaderboard.</p>
+                    
+                    <p><strong>Leaderboard Submission Result:</strong> Our final test set AUROC was 0.71989 on the leaderboard, which represents a strong improvement over our Problem 1 model (AUROC = 0.67605) which used TfidfVectorizer and LogisticRegression. The primary reason for this improvement is the shift from sparse BoWs to dense BERT embeddings, which encode deeper semantic and syntactic cues. Random Forest is also better suited to the high-dimensional, contextualized BERT vectors than linear models like LR.</p>
+                    
+                    <p>From this project, we've learned about the many different ways to improve predictions, from using different classifiers, tweaking classifier settings, and using different features. Part 2 showed us specifically how better features can have a greater impact on model performance than changing the model, since our score improved more when using the BERT dataset over the regular x_train dataset than when we were tweaking the model settings and type.</p>
+                </div>
+
+                <div class="project-section">
+                    <h2>Key Insights & Learnings</h2>
                     <ul>
-                        <li><strong>Automated Classification:</strong> Machine learning models for reading-level assessment</li>
-                        <li><strong>Large-Scale Processing:</strong> Handles thousands of educational documents efficiently</li>
-                        <li><strong>Text Preprocessing:</strong> Advanced text cleaning and normalization techniques</li>
-                        <li><strong>Feature Extraction:</strong> Comprehensive linguistic feature analysis</li>
-                        <li><strong>End-to-End Pipeline:</strong> Complete workflow from raw text to classification results</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Technical Architecture</h2>
-                    <div class="architecture-grid">
-                        <div class="arch-item">
-                            <h3>Data Ingestion</h3>
-                            <p>Automated collection and preprocessing of educational documents</p>
-                        </div>
-                        <div class="arch-item">
-                            <h3>Text Processing</h3>
-                            <p>Advanced NLP techniques for text cleaning and feature extraction</p>
-                        </div>
-                        <div class="arch-item">
-                            <h3>Machine Learning</h3>
-                            <p>ML models trained on reading-level classification tasks</p>
-                        </div>
-                        <div class="arch-item">
-                            <h3>ETL Pipeline</h3>
-                            <p>End-to-end data transformation and loading processes</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-section">
-                    <h2>NLP Techniques Used</h2>
-                    <ul>
-                        <li><strong>Text Preprocessing:</strong> Tokenization, lemmatization, and stop word removal</li>
-                        <li><strong>Feature Engineering:</strong> Linguistic features, readability metrics, and statistical measures</li>
-                        <li><strong>Machine Learning Models:</strong> Classification algorithms for reading-level prediction</li>
-                        <li><strong>Model Evaluation:</strong> Cross-validation and performance metrics assessment</li>
-                        <li><strong>Pipeline Automation:</strong> Streamlined processing workflow</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Challenges & Solutions</h2>
-                    <div class="challenge-item">
-                        <h3>Challenge: Text Complexity Assessment</h3>
-                        <p>Accurately determining reading levels across diverse educational content with varying complexity.</p>
-                        <p><strong>Solution:</strong> Implemented comprehensive feature extraction including linguistic complexity metrics, vocabulary analysis, and syntactic structure assessment.</p>
-                    </div>
-                    <div class="challenge-item">
-                        <h3>Challenge: Scalable Processing</h3>
-                        <p>Processing thousands of documents efficiently while maintaining accuracy and performance.</p>
-                        <p><strong>Solution:</strong> Built an optimized ETL pipeline with parallel processing capabilities and efficient data structures.</p>
-                    </div>
-                </div>
-
-                <div class="project-section">
-                    <h2>Results & Impact</h2>
-                    <ul>
-                        <li>Successfully processed thousands of educational documents</li>
-                        <li>Implemented accurate reading-level classification system</li>
-                        <li>Built scalable end-to-end NLP pipeline</li>
-                        <li>Improved accessibility of educational content</li>
-                        <li>Reduced manual content classification workload</li>
-                        <li>Enhanced content targeting for different reading levels</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Technical Implementation</h2>
-                    <ul>
-                        <li><strong>Python Framework:</strong> Comprehensive NLP processing with libraries like NLTK and spaCy</li>
-                        <li><strong>Machine Learning:</strong> Scikit-learn and custom models for classification</li>
-                        <li><strong>Text Processing:</strong> Advanced preprocessing and feature extraction pipelines</li>
-                        <li><strong>ETL Design:</strong> Efficient data transformation and loading processes</li>
-                        <li><strong>Performance Optimization:</strong> Parallel processing and memory-efficient algorithms</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Future Enhancements</h2>
-                    <ul>
-                        <li>Deep learning models for improved classification accuracy</li>
-                        <li>Real-time processing capabilities for live content</li>
-                        <li>Multi-language support for international educational content</li>
-                        <li>Integration with educational platforms and learning management systems</li>
-                        <li>Advanced analytics dashboard for content insights</li>
-                        <li>Personalized reading recommendations based on user profiles</li>
+                        <li><strong>Feature Engineering Impact:</strong> BERT embeddings significantly outperformed traditional Bag-of-Words approaches</li>
+                        <li><strong>Model Selection:</strong> Random Forest worked better with dense BERT features than Logistic Regression</li>
+                        <li><strong>Hyperparameter Tuning:</strong> Cross-validation and grid search were crucial for optimal performance</li>
+                        <li><strong>Bias Analysis:</strong> Different models showed different biases toward reading levels</li>
+                        <li><strong>Author Analysis:</strong> Literary and abstract authors were more challenging to classify accurately</li>
+                        <li><strong>Performance Improvement:</strong> Better features had greater impact than model tweaking</li>
                     </ul>
                 </div>
             </div>
