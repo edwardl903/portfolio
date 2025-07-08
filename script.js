@@ -267,6 +267,7 @@ function createCursorEffect() {
     let trail1X = 0, trail1Y = 0;
     let trail2X = 0, trail2Y = 0;
     let trail3X = 0, trail3Y = 0;
+    let isOverIframe = false;
     
     // Track mouse movement
     document.addEventListener('mousemove', (e) => {
@@ -274,52 +275,112 @@ function createCursorEffect() {
         mouseY = e.clientY;
     });
     
+    // Handle iframe interactions
+    function handleIframeInteraction() {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+            // Show default cursor when hovering over iframe
+            iframe.addEventListener('mouseenter', () => {
+                isOverIframe = true;
+                cursor.style.display = 'none';
+                trail1.style.display = 'none';
+                trail2.style.display = 'none';
+                trail3.style.display = 'none';
+                document.body.style.cursor = 'auto';
+            });
+            
+            iframe.addEventListener('mouseleave', () => {
+                isOverIframe = false;
+                cursor.style.display = 'block';
+                trail1.style.display = 'block';
+                trail2.style.display = 'block';
+                trail3.style.display = 'block';
+                document.body.style.cursor = 'none';
+            });
+        });
+    }
+    
+    // Handle PDF viewer interactions
+    function handlePDFInteraction() {
+        const pdfViewers = document.querySelectorAll('embed[type="application/pdf"], object[type="application/pdf"]');
+        pdfViewers.forEach(pdf => {
+            pdf.addEventListener('mouseenter', () => {
+                isOverIframe = true;
+                cursor.style.display = 'none';
+                trail1.style.display = 'none';
+                trail2.style.display = 'none';
+                trail3.style.display = 'none';
+                document.body.style.cursor = 'auto';
+            });
+            
+            pdf.addEventListener('mouseleave', () => {
+                isOverIframe = false;
+                cursor.style.display = 'block';
+                trail1.style.display = 'block';
+                trail2.style.display = 'block';
+                trail3.style.display = 'block';
+                document.body.style.cursor = 'none';
+            });
+        });
+    }
+    
     // Animate cursor and trails
     function animateCursor() {
-        // Direct cursor movement (no smoothing for main cursor)
-        cursorX = mouseX;
-        cursorY = mouseY;
-        
-        // Smooth trail movements with different speeds
-        trail1X += (mouseX - trail1X) * 0.08;
-        trail1Y += (mouseY - trail1Y) * 0.08;
-        
-        trail2X += (mouseX - trail2X) * 0.05;
-        trail2Y += (mouseY - trail2Y) * 0.05;
-        
-        trail3X += (mouseX - trail3X) * 0.03;
-        trail3Y += (mouseY - trail3Y) * 0.03;
-        
-        // Update positions
-        cursor.style.left = cursorX - 8 + 'px';
-        cursor.style.top = cursorY - 8 + 'px';
-        
-        trail1.style.left = trail1X - 3 + 'px';
-        trail1.style.top = trail1Y - 3 + 'px';
-        
-        trail2.style.left = trail2X - 2 + 'px';
-        trail2.style.top = trail2Y - 2 + 'px';
-        
-        trail3.style.left = trail3X - 1.5 + 'px';
-        trail3.style.top = trail3Y - 1.5 + 'px';
+        // Only animate if not over iframe
+        if (!isOverIframe) {
+            // Direct cursor movement (no smoothing for main cursor)
+            cursorX = mouseX;
+            cursorY = mouseY;
+            
+            // Smooth trail movements with different speeds
+            trail1X += (mouseX - trail1X) * 0.08;
+            trail1Y += (mouseY - trail1Y) * 0.08;
+            
+            trail2X += (mouseX - trail2X) * 0.05;
+            trail2Y += (mouseY - trail2Y) * 0.05;
+            
+            trail3X += (mouseX - trail3X) * 0.03;
+            trail3Y += (mouseY - trail3Y) * 0.03;
+            
+            // Update positions
+            cursor.style.left = cursorX - 8 + 'px';
+            cursor.style.top = cursorY - 8 + 'px';
+            
+            trail1.style.left = trail1X - 3 + 'px';
+            trail1.style.top = trail1Y - 3 + 'px';
+            
+            trail2.style.left = trail2X - 2 + 'px';
+            trail2.style.top = trail2Y - 2 + 'px';
+            
+            trail3.style.left = trail3X - 1.5 + 'px';
+            trail3.style.top = trail3Y - 1.5 + 'px';
+        }
         
         requestAnimationFrame(animateCursor);
     }
     
     animateCursor();
     
+    // Initialize iframe and PDF handlers
+    handleIframeInteraction();
+    handlePDFInteraction();
+    
     // Enhanced interactive effects
     const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .btn, .nav-menu a, .hamburger');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(1.5)';
-            cursor.style.background = 'rgba(139, 92, 246, 1)';
-            cursor.style.boxShadow = '0 0 25px rgba(139, 92, 246, 1), inset 0 0 8px rgba(255, 255, 255, 0.6)';
+            if (!isOverIframe) {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.background = 'rgba(139, 92, 246, 1)';
+                cursor.style.boxShadow = '0 0 25px rgba(139, 92, 246, 1), inset 0 0 8px rgba(255, 255, 255, 0.6)';
+            }
         });
         el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-            cursor.style.background = 'rgba(139, 92, 246, 1)';
-            cursor.style.boxShadow = '0 0 15px rgba(139, 92, 246, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
+            if (!isOverIframe) {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.background = 'rgba(139, 92, 246, 1)';
+                cursor.style.boxShadow = '0 0 15px rgba(139, 92, 246, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
+            }
         });
     });
 }

@@ -10,6 +10,11 @@
     cursor: none !important;
 }
 
+/* Show default cursor for iframes and PDF viewers */
+iframe, embed[type="application/pdf"], object[type="application/pdf"] {
+    cursor: auto !important;
+}
+
 /* Custom cursor effects */
 .custom-cursor {
     position: fixed;
