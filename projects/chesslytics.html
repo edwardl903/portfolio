@@ -52,22 +52,24 @@
                 </div>
                 <div class="project-info">
                     <h1>ChessLytics</h1>
-                    <p class="project-description">Multi-cloud chess analytics platform processing 30GB+ of games with personalized Year in Review reports, community trend analysis, and interactive Power BI dashboards.</p>
+                    <p class="project-description">End-to-end chess analytics platform processing 100,000+ games with personalized insights, interactive visualizations, and cloud-based data pipelines using modern data engineering practices.</p>
                     <div class="project-tech">
-                        <span class="tech-tag">Azure Data Lake</span>
-                        <span class="tech-tag">PySpark</span>
-                        <span class="tech-tag">Databricks</span>
-                        <span class="tech-tag">Delta Lake</span>
-                        <span class="tech-tag">Power BI</span>
-                        <span class="tech-tag">GCP BigQuery</span>
+                        <span class="tech-tag">Python</span>
                         <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">REST APIs</span>
+                        <span class="tech-tag">BigQuery</span>
+                        <span class="tech-tag">Looker Studio</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">Seaborn</span>
+                        <span class="tech-tag">Chess.com API</span>
+                        <span class="tech-tag">Heroku</span>
+                        <span class="tech-tag">GCP</span>
                     </div>
                     <div class="project-links">
                         <a href="https://www.chesslytics.xyz" class="project-link" target="_blank">
                             <i class="fas fa-external-link-alt"></i> Live Demo
                         </a>
-                        <a href="https://github.com/edwardl903/chesslyzer" class="project-link" target="_blank">
+                        <a href="https://github.com/edwardl903/chesslyzer-app" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> View Code
                         </a>
                     </div>
@@ -75,115 +77,421 @@
             </div>
 
             <div class="project-content">
-                <div class="project-section">
-                    <h2>Overview</h2>
-                    <p>ChessLytics was born from my frustration as a competitive chess player with the lack of comprehensive analytics tools in the chess community. Inspired by Spotify's Year in Review, I set out to create my own chess analytics platform that could provide deep insights into playing patterns and trends. What started as a personal project evolved into a sophisticated multi-cloud data engineering and analytics platform processing millions of games.</p>
+                <div class="project-section story-section">
+                    <h2>Introduction: Curiosity, Strategy, and a Chessboard</h2>
+                    <p>Before I ever wrote a single SQL query or processed a dataset, I was just a chess player trying to understand why I kept losing the same types of games.</p>
+                    
+                    <p>It started like this: I'd play five games online. Win two, lose three. I'd feel like I was doing okay—until I checked my history and noticed I had lost to the exact same opening… again. That pattern repeated itself over weeks, and I began wondering whether there was something deeper going on. Was I making predictable mistakes? Was my intuition failing me under time pressure?</p>
+                    
+                    <p>This question—<strong>what am I missing?</strong>—sparked the creation of ChessLytics, a data analytics platform that helps players make sense of their chess performance by combining large-scale game processing with behavioral insights. What started as a small personal project eventually became a full data pipeline analyzing thousands of games, complete with automated dashboards, user-specific reports, and scalable cloud architecture.</p>
+                    
+                    <p>While I built ChessLytics to improve at chess, I ended up learning how to build real-world data systems, work with messy and complex datasets, and think critically about user behavior. It taught me more than any classroom project. And more importantly, it taught me how to connect data with decisions.</p>
                 </div>
 
-                <div class="project-section">
-                    <h2>Key Features</h2>
-                    <ul>
-                        <li><strong>Personalized Analytics:</strong> Individual player statistics and Year in Review reports</li>
-                        <li><strong>Massive Data Processing:</strong> Multi-cloud architecture handling 30GB+ of chess games</li>
-                        <li><strong>Trend Analysis:</strong> Community-wide insights and chess trend identification</li>
-                        <li><strong>Interactive Dashboard:</strong> Power BI visualizations for comprehensive data exploration</li>
-                        <li><strong>Multi-Platform Integration:</strong> Support for both Chess.com and Lichess data sources</li>
-                        <li><strong>Scalable Architecture:</strong> Hybrid cloud solution with Azure and GCP</li>
-                    </ul>
+                <div class="project-section story-section">
+                    <h2>Identifying the Problem: Beyond the Game History</h2>
+                    <p>Platforms like Chess.com do a great job of letting users review their games. But those reviews are usually one-off. They show what happened in a single game, but they don't help players step back and identify patterns across time. I wanted answers like:</p>
+                    
+                    <div class="problem-questions">
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>Which openings was I overusing?</p>
+                        </div>
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>Did I struggle more against certain rating brackets?</p>
+                        </div>
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>Was my decision quality better in longer games or faster time controls?</p>
+                        </div>
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>How often did I blunder when I had less than one minute on the clock?</p>
+                        </div>
+                    </div>
+                    
+                    <p>The only way to answer these questions was to collect all my games, clean and structure the data, and start digging in. At first, I did this manually—exporting my PGN files and reviewing them in Excel. But the process was tedious and slow. I knew there had to be a better way, and that's when I decided to automate the entire pipeline.</p>
                 </div>
 
-                <div class="project-section">
-                    <h2>Technical Architecture</h2>
-                    <div class="architecture-grid">
-                        <div class="arch-item">
-                            <h3>Data Ingestion</h3>
-                            <p>REST APIs for Chess.com data and Lichess compressed files (30GB+) for comprehensive game collection</p>
+                <div class="project-section story-section">
+                    <h2>Designing the System: From PGN to Dashboard</h2>
+                    <p>To make ChessLytics scalable, I had to build a system that could process thousands of games across multiple users, while keeping it efficient and secure. Here's how I approached it:</p>
+                    
+                    <div class="system-design-grid">
+                        <div class="design-item">
+                            <h3><i class="fas fa-download"></i> Data Ingestion</h3>
+                            <p>Chess.com provides a comprehensive REST API that allows access to player data and game histories. I built automated scripts to fetch player profiles, monthly game archives, and detailed game information using Python's requests library with proper rate limiting and error handling.</p>
+                            <p>For user-specific data, I created functionality for people to input their Chess.com username and year, which would trigger the system to collect and process their entire game history automatically.</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Data Processing</h3>
-                            <p>PySpark on Databricks clusters for scalable processing of millions of chess games</p>
+                        
+                        <div class="design-item">
+                            <h3><i class="fas fa-cogs"></i> Data Processing with Python</h3>
+                            <p>Once the raw data was ingested, I used Python with Pandas and NumPy to parse and transform the files. PGN (Portable Game Notation) is a structured format, but it still requires custom parsing to extract metadata like:</p>
+                            <ul>
+                                <li>Opening name and ECO code</li>
+                                <li>Move-by-move timestamps and time controls</li>
+                                <li>Game duration, result, and rating changes</li>
+                                <li>Special moves like castling, en passant, and promotions</li>
+                            </ul>
+                            <p>Using Python allowed me to process the data efficiently while maintaining flexibility for complex chess-specific calculations.</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Data Storage</h3>
-                            <p>Azure Data Lake Storage for raw data and Delta Lake for processed, clean datasets</p>
+                        
+                        <div class="design-item">
+                            <h3><i class="fas fa-database"></i> Storage and Analytics</h3>
+                            <p>Processed data was pushed into Google BigQuery, which allowed me to run complex SQL analytics at scale. For example, I could quickly compute player win rates per opening, track average performance over time, and compare results by time control or rating bracket.</p>
+                            <p>I used Looker Studio to build interactive dashboards, both for global trends and for user-specific insights. Users could input their username and receive a full performance breakdown within minutes.</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Analytics Platform</h3>
-                            <p>Power BI for interactive visualizations and GCP BigQuery for additional analytics</p>
+                        
+                        <div class="design-item">
+                            <h3><i class="fas fa-globe"></i> Frontend and API Layer</h3>
+                            <p>I built a responsive web application with Flask, served by a RESTful API. The frontend allowed users to input their Chess.com username, trigger their personalized analysis, and interact with 20+ different charts and visualizations. The entire process—from raw data collection to visual insights—was streamlined and automated.</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Web Application</h3>
-                            <p>Flask-based application with automated data cleaning and user dashboard generation</p>
+                    </div>
+
+                    <!-- Initial Architecture Overview -->
+                    <div class="project-section story-section">
+                        <h2>Initial System Architecture</h2>
+                        <p>Here's how I designed the initial ChessLytics architecture using Google Cloud Platform to solve these chess analytics challenges:</p>
+                        
+                        <div class="diagram-image-container">
+                            <img src="../static/images/chesslytics-initial-diagram.png" alt="Chesslytics Initial GCP Architecture" class="architecture-image">
+                            <div class="diagram-caption">
+                                <p><strong>Initial GCP Architecture:</strong> Complete data pipeline from Chess.com API and user uploads through in-memory processing to BigQuery analytics and interactive dashboards.</p>
+                            </div>
                         </div>
-                        <div class="arch-item">
-                            <h3>Multi-Cloud Integration</h3>
-                            <p>Hybrid architecture combining Azure for big data processing and GCP for analytics</p>
+                    </div>
+
+                    <!-- Multi-Cloud Hybrid Architecture Diagram -->
+                    <div class="architecture-diagram">
+                        <h3><i class="fas fa-project-diagram"></i> Multi-Cloud Hybrid Architecture</h3>
+                        <div class="diagram-image-container">
+                            <img src="../static/images/chesslytics-diagram.png" alt="Chesslytics Data Engineering Architecture" class="architecture-image">
+                            <div class="diagram-caption">
+                                <p><strong>Data Engineering Pipeline:</strong> Multi-cloud hybrid architecture combining Azure Databricks for distributed processing and Google Cloud Platform for analytics and visualization.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="architecture-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-cogs"></i> Data Processing Pipeline</h4>
+                                <div class="pipeline-steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <div class="step-content">
+                                            <strong>Data Ingestion:</strong> Lichess monthly game dumps (30GB+ compressed)
+                                        </div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <div class="step-content">
+                                            <strong>Distributed Processing:</strong> PySpark with ZST decompression & PGN parsing
+                                        </div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <div class="step-content">
+                                            <strong>Data Lake:</strong> Delta Lake with partitioning by YearMonth
+                                        </div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <div class="step-content">
+                                            <strong>Analytics:</strong> Cross-cloud integration for comprehensive insights
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-chart-bar"></i> Key Benefits</h4>
+                                <div class="benefits-grid">
+                                    <div class="benefit-item">
+                                        <i class="fas fa-rocket"></i>
+                                        <span>Scalability</span>
+                                        <p>Handle millions of games with distributed processing</p>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Reliability</span>
+                                        <p>ACID transactions and data versioning with Delta Lake</p>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>Cost Optimization</span>
+                                        <p>Use best-in-class services from each cloud provider</p>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-sync-alt"></i>
+                                        <span>Flexibility</span>
+                                        <p>Hybrid approach allows for future expansion</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-section">
-                    <h2>Challenges & Solutions</h2>
+                <div class="project-section story-section">
+                    <h2>Initial Architecture: Google Cloud Platform Solution</h2>
+                    <p>When I first built ChessLytics, I designed a comprehensive Google Cloud Platform architecture that could handle chess game analysis at scale. This initial solution focused on processing Chess.com API data and user uploads efficiently.</p>
+                    
+                    <p>The architecture was built around Google Cloud's powerful analytics services, providing a solid foundation for chess analytics while maintaining cost-effectiveness and scalability.</p>
+
+                    <div class="hybrid-architecture-grid">
+                        <div class="arch-item">
+                            <h3><i class="fab fa-google"></i> Google Cloud Platform Core</h3>
+                            <p><strong>Cloud Storage & BigQuery:</strong> I implemented a data warehouse solution using Google Cloud Storage for raw data and BigQuery for analytics processing.</p>
+                            <ul>
+                                <li>Cloud Storage buckets for raw game data</li>
+                                <li>BigQuery datasets for structured analytics</li>
+                                <li>Data partitioning by date and user</li>
+                                <li>Automated data pipeline scheduling</li>
+                            </ul>
+                        </div>
+
+                        <div class="arch-item">
+                            <h3><i class="fas fa-chart-line"></i> Data Processing Pipeline</h3>
+                            <p><strong>ETL Process:</strong> I built a comprehensive Extract, Transform, Load pipeline using Python and Google Cloud services.</p>
+                            <ul>
+                                <li>Chess.com API integration with rate limiting</li>
+                                <li>CSV/XLSX file processing for user uploads</li>
+                                <li>PGN parsing and game analysis</li>
+                                <li>Statistics calculation and aggregation</li>
+                            </ul>
+                        </div>
+
+                        <div class="arch-item">
+                            <h3><i class="fas fa-tachometer-alt"></i> Analytics & Visualization</h3>
+                            <p><strong>Looker Studio Integration:</strong> I created interactive dashboards and visualizations to present chess analytics insights.</p>
+                            <ul>
+                                <li>Real-time performance metrics</li>
+                                <li>Interactive game history analysis</li>
+                                <li>Opening repertoire visualization</li>
+                                <li>Player statistics dashboards</li>
+                            </ul>
+                        </div>
+
+                        <div class="arch-item">
+                            <h3><i class="fas fa-globe"></i> Web Application</h3>
+                            <p><strong>Flask API & User Interface:</strong> I developed a complete web application with REST API endpoints and responsive user interface.</p>
+                            <ul>
+                                <li>Flask REST API for data access</li>
+                                <li>User authentication and data privacy</li>
+                                <li>File upload handling (CSV/XLSX)</li>
+                                <li>Real-time analytics updates</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="technical-highlights">
+                        <h3><i class="fas fa-code"></i> Initial Technical Implementation</h3>
+                        <div class="highlight-grid">
+                            <div class="highlight-item">
+                                <h4>Scalable Data Processing</h4>
+                                <p>Built efficient data pipelines handling thousands of chess games with Python, Pandas, and Google Cloud services.</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>Cost-Effective Analytics</h4>
+                                <p>Leveraged BigQuery's pay-per-query model for cost-effective analytics processing and storage.</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>Real-Time Insights</h4>
+                                <p>Created interactive dashboards providing immediate insights into chess performance and game analysis.</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>User-Friendly Interface</h4>
+                                <p>Developed an intuitive web application allowing users to upload their games and view personalized analytics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-section story-section">
+                    <h2>Evolution: Multi-Cloud Hybrid Architecture</h2>
+                    <p>As ChessLytics grew, I hit a major limitation: Chess.com's API rate limits prevented me from processing the massive scale of chess games I wanted to analyze. I needed a solution that could handle millions of games efficiently.</p>
+                    
+                    <p>That's when I discovered Lichess's monthly game dumps—compressed archives containing all games played on their platform each month. This presented an opportunity to build a truly scalable, multi-cloud data engineering solution.</p>
+
+                    <div class="hybrid-architecture-grid">
+                        <div class="arch-item">
+                            <h3><i class="fab fa-microsoft"></i> Microsoft Azure Integration</h3>
+                            <p><strong>Azure Data Lake Storage Gen2:</strong> Set up scalable cloud storage for raw Lichess game data with hierarchical namespace and blob storage capabilities.</p>
+                            <ul>
+                                <li>Storage account configuration with access key authentication</li>
+                                <li>Container-based organization for monthly game archives</li>
+                                <li>WASBS (Windows Azure Storage Blob Service) integration</li>
+                                <li>Automatic data lifecycle management</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="arch-item">
+                            <h3><i class="fas fa-cloud"></i> Databricks & PySpark Processing</h3>
+                            <p><strong>Azure Databricks:</strong> Leveraged distributed computing clusters for processing massive chess datasets efficiently.</p>
+                            <ul>
+                                <li>PySpark for distributed data processing</li>
+                                <li>Custom PGN parsing with python-chess library</li>
+                                <li>Zstandard (ZST) decompression for compressed game files</li>
+                                <li>RDD and DataFrame operations for game analysis</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="arch-item">
+                            <h3><i class="fas fa-database"></i> Delta Lake Implementation</h3>
+                            <p><strong>Silver Layer Data Lake:</strong> Implemented Delta Lake for ACID transactions and schema evolution on processed game data.</p>
+                            <ul>
+                                <li>Partitioned by YearMonth for efficient querying</li>
+                                <li>Schema enforcement and data quality checks</li>
+                                <li>Time travel capabilities for data versioning</li>
+                                <li>Optimized storage format for analytics workloads</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="arch-item">
+                            <h3><i class="fas fa-chart-line"></i> Multi-Platform Analytics</h3>
+                            <p><strong>Hybrid Analytics:</strong> Combined Azure Databricks processing with Google Cloud BigQuery for comprehensive analytics.</p>
+                            <ul>
+                                <li>Azure for big data processing and storage</li>
+                                <li>GCP BigQuery for interactive SQL analytics</li>
+                                <li>Looker Studio for visualization dashboards</li>
+                                <li>Cross-cloud data integration and synchronization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Databricks Notebook Implementation -->
+                    <div class="diagram-image-container">
+                        <img src="../static/images/databricks.png" alt="Databricks Notebook Implementation" class="architecture-image">
+                        <div class="diagram-caption">
+                            <p><strong>Databricks Notebook:</strong> PySpark notebook showing Lichess game processing pipeline with ZST decompression, PGN parsing, and Delta Lake writes.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="project-section story-section">
+                    <h2>What I Learned from the Data</h2>
+                    <p>With the system in place, I started to see fascinating trends—both in my own gameplay and across users.</p>
+                    
+                    <p>For example, I discovered that I was frequently making mistakes in the same late-midgame positions when under time pressure. My accuracy dropped significantly after move 25, especially when I had less than two minutes on the clock. That insight alone helped me improve my time management and focus in endgames.</p>
+                    
+                    <p>Other users shared similar feedback. Some found that they played too passively with the black pieces, while others were overusing risky openings without realizing how poor their results were. I even built analytics that looked at rating volatility and performance after losses, helping players understand how emotion was affecting their decision-making.</p>
+                    
+                    <p>These patterns made the experience feel incredibly rewarding. I wasn't just building charts—I was helping people see themselves more clearly.</p>
+
+                    <!-- Sample Analytics Dashboard -->
+                    <div class="diagram-image-container">
+                        <img src="../static/images/sample-dashboard.png" alt="Sample Analytics Dashboard" class="architecture-image">
+                        <div class="diagram-caption">
+                            <p><strong>Sample Analytics Dashboard:</strong> Looker Studio dashboard showing personalized chess analytics with multiple charts and insights.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-section story-section">
+                    <h2>Challenges I Faced</h2>
+                    <p>Like any real-world project, ChessLytics came with plenty of challenges. A few stand out:</p>
+                    
                     <div class="challenge-item">
-                        <h3>Challenge: Data Collection at Scale</h3>
-                        <p>Initially used web scraping with BeautifulSoup and Selenium, but it was slow and not scalable for processing millions of games.</p>
-                        <p><strong>Solution:</strong> Discovered and implemented Chess.com REST APIs for user-specific data and Lichess compressed files for community-wide analysis, enabling efficient collection of 30GB+ of chess games.</p>
+                        <h3><i class="fas fa-exclamation-triangle"></i> API Rate Limiting</h3>
+                        <p>Chess.com APIs have strict rate limits that could cause data collection failures and incomplete datasets. I implemented intelligent rate limiting with exponential backoff, proper HTTP headers, and error handling to ensure reliable data collection.</p>
                     </div>
+                    
                     <div class="challenge-item">
-                        <h3>Challenge: API Rate Limiting</h3>
-                        <p>Chess.com APIs had strict rate limits that constrained how extensively I could use them for data collection.</p>
-                        <p><strong>Solution:</strong> Implemented intelligent rate limiting and caching strategies, and supplemented with Lichess data for comprehensive analysis.</p>
+                        <h3><i class="fas fa-exclamation-triangle"></i> Complex PGN Parsing</h3>
+                        <p>Chess games are stored in PGN format which contains complex move notation, annotations, and metadata that needed to be accurately parsed and validated. I built custom PGN parsing functions using Python-Chess library with robust error handling for malformed game data.</p>
                     </div>
+                    
                     <div class="challenge-item">
-                        <h3>Challenge: Processing Massive Datasets</h3>
-                        <p>Processing 30GB+ of compressed chess games required significant computational resources and efficient data processing techniques.</p>
-                        <p><strong>Solution:</strong> Migrated to a multi-cloud hybrid architecture using Azure Data Lake Storage, PySpark on Databricks clusters, and Delta Lake for efficient big data processing.</p>
+                        <h3><i class="fas fa-exclamation-triangle"></i> Performance Optimization</h3>
+                        <p>Generating 20+ different visualizations dynamically for each user request while maintaining performance required careful memory management and optimization. I implemented efficient chart generation using Matplotlib and Seaborn with proper figure management and caching mechanisms.</p>
                     </div>
+                    
                     <div class="challenge-item">
-                        <h3>Challenge: Real-time User Analytics</h3>
-                        <p>Providing personalized analytics for individual users while maintaining performance with large-scale community data.</p>
-                        <p><strong>Solution:</strong> Built a Flask application with automated data cleaning pipelines, integrated with GCP BigQuery for analytics, and Power BI for interactive visualizations.</p>
+                        <h3><i class="fas fa-exclamation-triangle"></i> Cloud Integration</h3>
+                        <p>Integrating with Google Cloud BigQuery for data storage and creating personalized Looker Studio dashboards required comprehensive authentication, schema management, and data upload pipelines. I built dynamic dashboard generation with user-specific filters and parameters.</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Deployment Challenges</h3>
+                        <p>Deploying a data-intensive application on Heroku with memory constraints required optimization of memory usage, proper process management with Gunicorn, and efficient data structures to minimize memory footprint.</p>
                     </div>
                 </div>
 
-                <div class="project-section">
-                    <h2>Results & Impact</h2>
-                    <ul>
-                        <li><strong>Massive Data Processing:</strong> Successfully processed 30GB+ of compressed chess games from Lichess</li>
-                        <li><strong>Multi-Platform Integration:</strong> Built comprehensive data pipeline handling both Chess.com and Lichess data sources</li>
-                        <li><strong>Scalable Architecture:</strong> Implemented hybrid cloud solution with Azure Data Lake Storage and GCP BigQuery</li>
-                        <li><strong>Advanced Analytics:</strong> Created interactive Power BI dashboards for trend analysis and community insights</li>
-                        <li><strong>Personalized Experience:</strong> Generated individual Year in Review reports with automated data cleaning</li>
-                        <li><strong>Community Impact:</strong> Provided insights into chess trends and patterns across millions of games</li>
-                    </ul>
+
+
+                <div class="project-section story-section">
+                    <h2>Why It Matters</h2>
+                    <p>ChessLytics was never just about chess—it was about learning how to build something that matters. It taught me how to work with data from end to end: ingestion, transformation, analysis, visualization, and user feedback.</p>
+                    
+                    <p>But more than that, it taught me to think like a systems designer. Every feature I added had to balance performance, usability, and accuracy. Every insight I surfaced had to be statistically sound and meaningful. And every line of code I wrote had to scale.</p>
+                    
+                    <p>These are the same skills I hope to bring into future work, especially in environments where data is critical to making informed, high-stakes decisions—whether it's in finance, health, or national security.</p>
                 </div>
 
-                <div class="project-section">
-                    <h2>Technical Implementation Details</h2>
-                    <ul>
-                        <li><strong>Data Collection:</strong> REST APIs for Chess.com user data, Lichess compressed files for community analysis</li>
-                        <li><strong>Big Data Processing:</strong> PySpark on Databricks clusters for scalable processing of millions of games</li>
-                        <li><strong>Data Storage:</strong> Azure Data Lake Storage for raw data, Delta Lake for processed datasets</li>
-                        <li><strong>Analytics Platform:</strong> Power BI for interactive visualizations, GCP BigQuery for additional analytics</li>
-                        <li><strong>Web Application:</strong> Flask with automated data cleaning and user dashboard generation</li>
-                        <li><strong>Cloud Architecture:</strong> Hybrid multi-cloud solution combining Azure and GCP services</li>
-                    </ul>
+
+
+                <div class="project-section story-section">
+                    <h2>Conclusion</h2>
+                    <p>ChessLytics started as a tool to help me stop losing chess games. But in the end, it taught me how to think like a data engineer. It challenged me to design scalable systems, analyze complex behavior, and build tools that people actually use.</p>
+                    
+                    <p>Most importantly, it taught me that data is never just numbers—it's a reflection of people, patterns, and decisions. And when used responsibly, it can be a powerful tool for understanding the world and making it better.</p>
+                    
+                    <p>That's the mindset I carry into every data project I take on, and one I'm excited to bring to the next chapter of my career.</p>
                 </div>
 
                 <div class="project-section">
                     <h2>Future Enhancements</h2>
-                    <ul>
-                        <li>Machine learning models for game outcome prediction and opening recommendations</li>
-                        <li>Real-time streaming analytics for live game analysis</li>
-                        <li>Advanced social features for comparing with friends and community trends</li>
-                        <li>Mobile application for on-the-go analytics and notifications</li>
-                        <li>Integration with additional chess platforms and tournament data</li>
-                        <li>Advanced AI-powered insights and personalized coaching recommendations</li>
-                    </ul>
+                    <div class="enhancements-grid">
+                        <div class="enhancement-item">
+                            <h3><i class="fas fa-brain"></i> Machine Learning Integration</h3>
+                            <p>Implement ML models for game outcome prediction, opening recommendations, and player strength assessment</p>
+                        </div>
+                        <div class="enhancement-item">
+                            <h3><i class="fas fa-stream"></i> Real-time Analytics</h3>
+                            <p>Add real-time game analysis and live performance tracking capabilities</p>
+                        </div>
+                        <div class="enhancement-item">
+                            <h3><i class="fas fa-mobile-alt"></i> Mobile Application</h3>
+                            <p>Develop a mobile app for on-the-go analytics and push notifications for performance insights</p>
+                        </div>
+                        <div class="enhancement-item">
+                            <h3><i class="fas fa-users"></i> Social Features</h3>
+                            <p>Add friend comparison features, leaderboards, and community trend analysis</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Project Navigation -->
+    <div class="project-navigation">
+        <div class="container">
+            <div class="nav-buttons">
+                <a href="spotifriend.html" class="nav-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>Previous: SpotiFriend</span>
+                </a>
+                <a href="../projects.html" class="nav-btn back-btn">
+                    <i class="fas fa-th"></i>
+                    <span>All Projects</span>
+                </a>
+                <a href="etl-tools.html" class="nav-btn next-btn">
+                    <span>Next: ETL Tools</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Edward Lai. Built with ❤️ and lots of ☕</p>
+        </div>
+    </footer>
 
     <script src="../script.js"></script>
 </body>

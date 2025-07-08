@@ -35,6 +35,12 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
+// Make sure the first section is visible immediately
+const firstSection = document.querySelector('section');
+if (firstSection) {
+    firstSection.classList.add('visible');
+}
+
 // Typing effect for hero description
 function typeWriter(element, text, speed = 100) {
     let i = 0;
