@@ -2643,6 +2643,106 @@ section h2 {
     font-size: 1.1rem;
 }
 
+/* Chess Club Photos Section */
+.chess-club-section {
+    margin: 3rem 0;
+}
+
+.chess-club-section h3 {
+    color: #8b5cf6;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.chess-club-section p {
+    color: #cccccc;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.chess-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Meeting photos work together to fill the row nicely */
+.chess-photo-card.meeting-photo {
+    grid-column: span 1;
+}
+
+.chess-photo-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.chess-photo-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+}
+
+.chess-photo-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.chess-photo-card:hover img {
+    transform: scale(1.05) translateZ(0);
+}
+
+/* Meeting photos work together to fill the row */
+.chess-photo-card.meeting-photo {
+    grid-column: span 1;
+}
+
+.photo-content {
+    padding: 1.5rem;
+}
+
+.photo-content h4 {
+    color: #8b5cf6;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.photo-content p {
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .chess-photos-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .chess-photo-card img {
+        height: 200px;
+    }
+    
+    .photo-content {
+        padding: 1rem;
+    }
+}
+
 .chess-games-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -3215,6 +3315,32 @@ section h2 {
     color: rgba(139, 92, 246, 1);
     border-color: rgba(139, 92, 246, 0.5);
     transform: scale(1.05);
+}
+
+.image-placeholder .placeholder-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+.image-placeholder .placeholder-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.image-placeholder .placeholder-link i {
+    font-size: 0.8em;
 }
 
 /* Story Section Enhancements */

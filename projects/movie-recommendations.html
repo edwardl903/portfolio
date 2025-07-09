@@ -73,11 +73,44 @@
 
             <div class="project-content">
                 <div class="project-section">
+                    <h2>Project Overview</h2>
+                    <p>This project tackles one of the most common challenges in modern technology: <strong>how do we recommend movies to users?</strong> Think about Netflix, Amazon, or any streaming service - they all need to predict what you might enjoy watching based on your past preferences and similar users' behavior.</p>
+                    
+                    <p>I built a <strong>movie recommendation system</strong> using the MovieLens dataset, which contains millions of movie ratings from thousands of users. The goal was to predict how a user would rate a movie they haven't seen yet, using patterns from their previous ratings and the ratings of similar users.</p>
+
+                    <h3>What is Collaborative Filtering?</h3>
+                    <p>At the heart of this project is <strong>collaborative filtering</strong>, a technique that works on a simple principle: "Users who liked similar movies in the past will like similar movies in the future." Instead of analyzing movie content (like genre, actors, or plot), we focus on user behavior patterns.</p>
+                    
+                    <p>For example, if User A and User B both loved "The Matrix" and "Inception," and User A also loved "Interstellar," we might recommend "Interstellar" to User B.</p>
+
+                    <h3>The Challenge</h3>
+                    <p>The main challenge is that most users have only rated a small fraction of available movies, creating a <strong>sparse matrix</strong> where most entries are missing. Our task was to fill in these missing ratings accurately using machine learning techniques.</p>
+
+                    <h3>Two Approaches Explored</h3>
+                    <ul>
+                        <li><strong>Part 1:</strong> Basic matrix factorization - breaking down the user-movie rating matrix into simpler components</li>
+                        <li><strong>Part 2:</strong> Advanced SVD++ algorithm - incorporating both explicit ratings and implicit user behavior</li>
+                    </ul>
+
+                    <h3>Key Metrics</h3>
+                    <p>We measured success using two metrics:</p>
+                    <ul>
+                        <li><strong>MAE (Mean Absolute Error):</strong> Average difference between predicted and actual ratings</li>
+                        <li><strong>RMSE (Root Mean Square Error):</strong> Similar to MAE but penalizes larger errors more heavily</li>
+                    </ul>
+                    <p>Lower values mean better predictions!</p>
+                </div>
+
+                <div class="project-section">
                     <h2>Part 1: Matrix Factorization Analysis</h2>
                     
                     <h3>Figure 1a: Training and Validation RMSE vs. Training Steps</h3>
-                    <div class="image-placeholder">
-                        <p>[Figure 1a: Training and Validation RMSE plots for different K values]</p>
+                    <div class="project-image">
+                        <img src="../static/images/tv-rmse-same-alpha.jpg" alt="Training and Validation RMSE vs Training Steps" />
+                        <div class="image-caption">
+                            <h3>Training and Validation RMSE vs Training Steps</h3>
+                            <p>RMSE plots for different K values showing overfitting as K increases</p>
+                        </div>
                     </div>
                     
                     <h4>Analysis:</h4>
@@ -91,8 +124,12 @@
                     <p>We chose step size 0.8 because it was at this step size that the graphs started to look more stable and not diverge. We started by testing larger step size values such as 5.0 and 2.0 which showed divergence, then incrementally decreased the step size to get to a point where there was no divergence and the graph did not have many sharp peaks/valleys, which happened around 0.8.</p>
 
                     <h3>Figure 1b: Training and Validation RMSE with Regularization</h3>
-                    <div class="image-placeholder">
-                        <p>[Figure 1b: Training and Validation RMSE plots with different alpha values]</p>
+                    <div class="project-image">
+                        <img src="../static/images/tv-rmse-diff-alpha.jpg" alt="Training and Validation RMSE with Regularization" />
+                        <div class="image-caption">
+                            <h3>Training and Validation RMSE with Regularization</h3>
+                            <p>RMSE plots with different alpha values showing regularization effects</p>
+                        </div>
                     </div>
                     
                     <h4>Analysis:</h4>
@@ -153,8 +190,12 @@
                     <p>Yes, the model ranking changes to K = 10 being the best model when using MAE instead of RMSE because that model has the lowest MAE of 0.724.</p>
 
                     <h3>Figure 1d: Movie Embedding Visualization</h3>
-                    <div class="image-placeholder">
-                        <p>[Figure 1d: 2D visualization of movie embeddings showing clustering by genre]</p>
+                    <div class="project-image">
+                        <img src="../static/images/movie-embedding-clusters.jpg" alt="Movie Embedding Visualization" />
+                        <div class="image-caption">
+                            <h3>Movie Embedding Visualization</h3>
+                            <p>2D visualization of movie embeddings showing clustering by genre</p>
+                        </div>
                     </div>
                     
                     <h4>Analysis:</h4>
@@ -182,8 +223,12 @@
                     <p>Our evaluation metric was MAE, which measures how closely predicted ratings match actual ratings on average. After retrieving best hyperparameters from RandomizedSearchCV, we retrained the final model on the full ratings masked leaderboard set. All predictions were clipped to valid rating range [1, 5] and additionally we rounded the predicted ratings to the nearest integer after clipping. We saw an improved leaderboard MAE performance with rounding, going against our initial intuition to include many decimal points for prediction precision. The improvement from the rounding to nearest integer is likely due to the true ratings also being integers, so rounding would prevent unnecessary penalty from small prediction errors.</p>
 
                     <h3>2b: Hyperparameter Tuning Results</h3>
-                    <div class="image-placeholder">
-                        <p>[Figure 2b: Hyperparameter tuning results showing MAE across different configurations]</p>
+                    <div class="project-image">
+                        <img src="../static/images/hyperparameters-tuning.jpg" alt="Hyperparameter Tuning Results" />
+                        <div class="image-caption">
+                            <h3>Hyperparameter Tuning Results</h3>
+                            <p>MAE across different hyperparameter configurations showing optimal settings</p>
+                        </div>
                     </div>
                     
                     <p><strong>Caption:</strong> Each point corresponds to a different combination of hyperparameters (n_factors, lr_all, reg_all). This figure shows that different configurations can significantly impact valid MAE. Additionally, this reflects the importance of hyperparameter tuning and shows no signs of overfitting or underfitting during model selection. The selection returned n_factors=150, lr_all=0.012, reg_all=0.07 with the lowest MAE value of 0.7233. The MAE varies between approximately 0.723 and 0.732 across trials, showing no underfitting because some hyperparameter combinations do perform well and better than others. There is no indication of overfitting, as the validation MAE remains stable across trials without extreme fluctuations or outliers with very low values.</p>

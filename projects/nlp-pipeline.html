@@ -73,6 +73,47 @@
 
             <div class="project-content">
                 <div class="project-section">
+                    <h2>Project Overview</h2>
+                    <p>This project addresses a fundamental challenge in education and content creation: <strong>how do we automatically determine the reading level of text?</strong> Think about textbooks, educational websites, or even news articles - they all need to be appropriately leveled for their target audience.</p>
+                    
+                    <p>I built an <strong>NLP (Natural Language Processing) pipeline</strong> that can automatically classify text passages as either "lower-level" (easier to read) or "upper-level" (more complex). This system processes thousands of literary passages and uses machine learning to predict their reading difficulty.</p>
+
+
+                    <h3>The Challenge</h3>
+                    <p>The main challenge is that reading difficulty isn't just about word length or sentence structure. It involves complex factors like:</p>
+                    <ul>
+                        <li>Vocabulary complexity and frequency</li>
+                        <li>Sentence structure and syntax</li>
+                        <li>Conceptual complexity and abstract thinking required</li>
+                        <li>Literary devices and metaphorical language</li>
+                    </ul>
+                    <p>Our task was to build a system that could capture these nuances automatically.</p>
+
+                    <h3>Two Approaches Explored</h3>
+                    <ul>
+                        <li><strong>Part 1:</strong> Traditional Bag-of-Words approach - analyzing word frequencies and patterns</li>
+                        <li><strong>Part 2:</strong> Advanced BERT embeddings - using modern language models to understand context and meaning</li>
+                    </ul>
+
+                    <h3>Key Metrics</h3>
+                    <p>We measured success using:</p>
+                    <ul>
+                        <li><strong>AUROC (Area Under ROC Curve):</strong> Measures how well our model distinguishes between reading levels (higher is better)</li>
+                        <li><strong>Confusion Matrix:</strong> Shows how often we correctly vs. incorrectly classify texts</li>
+                    </ul>
+                    <p>Our goal was to achieve high accuracy while understanding what types of texts were most challenging to classify.</p>
+
+                    <h3>Real-World Applications</h3>
+                    <p>This technology could be used by:</p>
+                    <ul>
+                        <li><strong>Educational platforms</strong> like Khan Academy or Coursera to recommend appropriate content</li>
+                        <li><strong>Publishers</strong> to automatically categorize books and articles</li>
+                        <li><strong>Content creators</strong> to ensure their writing reaches the intended audience</li>
+                        <li><strong>Libraries and schools</strong> to organize reading materials by difficulty</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
                     <h2>Part 1: Bag-of-Words Classification</h2>
                     
                     <h3>1A: Bag-of-Words Design Decision</h3>
@@ -95,9 +136,25 @@
                     <p>We used scikit-learn's liblinear solver, which is optimal for small to medium-sized datasets and supports L2 regularization. There were no convergence issues during training. Early stopping was not needed since logistic regression training is convex.</p>
                     
                     <p><strong>Results:</strong> The best performance was achieved with C=0.001, which produced a mean AUROC of approximately 0.7240 on the heldout set.</p>
+                    
+                    <div class="project-image">
+                        <img src="../static/images/logistic-regression.jpg" alt="Logistic Regression Performance Chart" />
+                        <div class="image-caption">
+                            <h3>Logistic Regression Performance</h3>
+                            <p>AUROC performance across different C values showing optimal regularization at C=0.001</p>
+                        </div>
+                    </div>
 
                     <h3>1D: Analysis of Predictions for the Best Classifier</h3>
                     <p>Our classifier showed a strong bias toward predicting the lower-level class over the upper-level class. This can be seen from the confusion matrix, where TN is greater than TP. Our analysis revealed that classifying longer documents was marginally more accurate than classifying shorter documents (~0.02% more accurate) which means that the length of the document doesn't matter too much in how accurate the predictions are. This is because our classifier focuses more on what types of words are present in the text, not the frequency of the words.</p>
+                    
+                    <div class="project-image">
+                        <img src="../static/images/confusion-matrix.jpg" alt="Confusion Matrix - Bag-of-Words" />
+                        <div class="image-caption">
+                            <h3>Confusion Matrix - Bag-of-Words</h3>
+                            <p>Confusion matrix showing the bias toward lower-level class predictions</p>
+                        </div>
+                    </div>
                     
                     <p>When analyzing errors by the author, we observed that the classifier struggled most with literary or abstract writers such as Franz Kafka, Thomas Hardy, and Gustave Flaubert, who write more about complex and metaphorical topics which are supposed to make the reader think about a deeper meaning. Conversely, the classifier performed very well on authors like Lewis Carroll, Hugh Lofting, and Margaret Sidney, who write stories more for younger audiences like children, which makes sense since they often use simpler vocab and grammar, and have a clearer sentence structure that aligns with patterns our classifier can predict on. Overall, our model performed better on simpler material (e.g. children's literature or stories) rather than more metaphorical and complex pieces.</p>
 
@@ -130,9 +187,25 @@
 }</code></pre>
                     
                     <p>We used 10 iterations of randomized search and selected the configuration that maximized AUROC on the validation folds. The best model achieved a validation AUROC of 0.7262. The plot shows that validation AUROC peaks around max_depth=10 before slightly declining, indicating overfitting at deeper depths. This confirms that tuning max_depth is essential for balancing bias and variance in random forest models trained on BERT features.</p>
+                    
+                    <div class="project-image">
+                        <img src="../static/images/rf-random-search.jpg" alt="Random Forest Performance" />
+                        <div class="image-caption">
+                            <h3>Random Forest Performance</h3>
+                            <p>AUROC performance vs max_depth showing optimal tree depth at max_depth=10</p>
+                        </div>
+                    </div>
 
                     <h3>2D: Error Analysis</h3>
                     <p>The confusion matrix shows that the classifier slightly favors the upper-level class, since TN is greater than TP. This differs from the Problem 1 model, which under-predicted the upper class. The change may reflect the improved representation power of BERT and contextualization, allowing the classifier to better identify complex passages. The validation set TPR (recall for upper-level) was 0.713, while the TNR (recall for lower-level) was 0.674, showing a bias toward identifying difficult texts. This confusion matrix is not directly comparable to Problem 1's, since it was generated from a held-out validation split rather than a cross-validation fold.</p>
+                    
+                    <div class="project-image">
+                        <img src="../static/images/rf-confusion-matrix.jpg" alt="Confusion Matrix - BERT" />
+                        <div class="image-caption">
+                            <h3>Confusion Matrix - BERT</h3>
+                            <p>Confusion matrix showing the bias toward upper-level class predictions</p>
+                        </div>
+                    </div>
 
                     <h3>2E: Report Performance on Test Set via Leaderboard</h3>
                     <p>Using the best configuration from our cross-validation procedure, we retrained the RandomForestClassifier on the full training set and generated probabilistic predictions for the test set using the BERT embeddings. The predictions were saved to yproba2_test.txt and submitted to the leaderboard.</p>
@@ -140,6 +213,8 @@
                     <p><strong>Leaderboard Submission Result:</strong> Our final test set AUROC was 0.71989 on the leaderboard, which represents a strong improvement over our Problem 1 model (AUROC = 0.67605) which used TfidfVectorizer and LogisticRegression. The primary reason for this improvement is the shift from sparse BoWs to dense BERT embeddings, which encode deeper semantic and syntactic cues. Random Forest is also better suited to the high-dimensional, contextualized BERT vectors than linear models like LR.</p>
                     
                     <p>From this project, we've learned about the many different ways to improve predictions, from using different classifiers, tweaking classifier settings, and using different features. Part 2 showed us specifically how better features can have a greater impact on model performance than changing the model, since our score improved more when using the BERT dataset over the regular x_train dataset than when we were tweaking the model settings and type.</p>
+                    
+
                 </div>
 
                 <div class="project-section">
