@@ -585,17 +585,7 @@ body::before {
     border: 1px solid transparent;
 }
 
-.dropdown-menu a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7);
-    transition: all 0.4s ease;
-    border-radius: 12px 0 0 12px;
-}
+
 
 .dropdown-menu a:hover {
     background: rgba(139, 92, 246, 0.1);
@@ -608,20 +598,9 @@ body::before {
         0 0 0 1px rgba(139, 92, 246, 0.2);
 }
 
-.dropdown-menu a:hover::before {
-    width: 4px;
-}
 
-.dropdown-menu a.active {
-    background: rgba(139, 92, 246, 0.15);
-    color: #a855f7;
-    font-weight: 600;
-    text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
-    border-color: rgba(139, 92, 246, 0.4);
-    box-shadow: 
-        0 4px 20px rgba(139, 92, 246, 0.2),
-        0 0 0 1px rgba(139, 92, 246, 0.3);
-}
+
+
 
 /* Piano Performances Section */
 .performances-section {
@@ -1434,8 +1413,10 @@ section h2 {
 /* Projects Section */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(3, 500px);
     gap: 2rem;
+    justify-content: center;
+    max-width: none;
 }
 
 .project-card {
@@ -1536,8 +1517,9 @@ section h2 {
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.15s ease-out;
-    min-height: 400px;
+    min-height: 500px;
     cursor: pointer;
+    border: 2px solid transparent;
 }
 
 .project-card-overlay:hover {
@@ -1545,12 +1527,13 @@ section h2 {
     box-shadow: 
         0 20px 60px rgba(139, 92, 246, 0.2),
         0 0 0 1px rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.5);
 }
 
 .project-image-cover {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 500px;
     overflow: hidden;
 }
 
@@ -1593,6 +1576,30 @@ section h2 {
     text-align: center;
     color: #ffffff;
     max-width: 90%;
+}
+
+.view-project-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    background: rgba(139, 92, 246, 0.8);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.15s ease-out;
+}
+
+.view-project-btn:hover {
+    background: rgba(139, 92, 246, 1);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .overlay-content h3 {
@@ -2524,7 +2531,8 @@ section h2 {
 }
 
 .hobby-description strong {
-    color: #a855f7;
+    color: #ffffff;
+    font-weight: 700;
 }
 
 .chess-link {
