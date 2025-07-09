@@ -52,95 +52,361 @@
                 </div>
                 <div class="project-info">
                     <h1>SpotiFriend</h1>
-                    <p class="project-description">Scalable cloud-based data pipeline analyzing Spotify listening behavior across 10,000+ tracks with real-time SQL queries.</p>
+                    <p class="project-description">Automated data pipeline extracting Spotify listening data with AWS cloud infrastructure, real-time analytics, and personalized music insights using modern data engineering practices.</p>
                     <div class="project-tech">
-                        <span class="tech-tag">AWS</span>
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">S3</span>
-                        <span class="tech-tag">Glue</span>
-                        <span class="tech-tag">Athena</span>
+                        <span class="tech-tag">Spotify API</span>
+                        <span class="tech-tag">AWS S3</span>
+                        <span class="tech-tag">AWS Lambda</span>
+                        <span class="tech-tag">AWS Glue</span>
+                        <span class="tech-tag">Amazon Athena</span>
+                        <span class="tech-tag">Amazon QuickSight</span>
+                        <span class="tech-tag">EventBridge</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Boto3</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">
+                        <a href="https://github.com/edwardl903/spotify-etl" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> View Code
+                        </a>
+                        <a href="#" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
                         </a>
                     </div>
                 </div>
             </div>
 
             <div class="project-content">
-                <div class="project-section">
-                    <h2>Overview</h2>
-                    <p>SpotiFriend is a cloud-based data pipeline that analyzes Spotify listening behavior and patterns. The system processes data from over 10,000 tracks and provides real-time SQL querying capabilities for music analytics and insights.</p>
+                <div class="project-section story-section">
+                    <h2>Introduction: From Music Discovery to Data Discovery</h2>
+                    <p>It started with a simple question: "Why do I keep listening to the same songs on repeat?"</p>
+                    
+                    <p>As someone who spends hours every day with music playing in the background—while coding, studying, or just relaxing—I began noticing patterns in my listening habits. Some weeks I'd be obsessed with indie rock, others with classical piano pieces. But I had no way to quantify these trends or understand what was driving my musical choices.</p>
+                    
+                    <p>This curiosity about my own listening behavior led me to build SpotiFriend, an automated data pipeline that extracts, processes, and analyzes Spotify listening data using AWS cloud services. What began as a personal project to understand my music taste evolved into a comprehensive data engineering solution that demonstrates real-world ETL processes, cloud architecture, and analytics automation.</p>
+                    
+                    <p>While the goal was to gain insights into my musical preferences, the project became a perfect showcase of modern data engineering practices—from API integration and data extraction to cloud storage, processing, and visualization.</p>
                 </div>
 
-                <div class="project-section">
-                    <h2>Key Features</h2>
-                    <ul>
-                        <li><strong>Data Ingestion:</strong> Automated pipeline for collecting Spotify listening data</li>
-                        <li><strong>Scalable Processing:</strong> Cloud-based architecture handling 10,000+ tracks</li>
-                        <li><strong>Real-time Queries:</strong> SQL-based analytics with fast response times</li>
-                        <li><strong>Music Analytics:</strong> Detailed insights into listening patterns and preferences</li>
-                        <li><strong>Cloud Infrastructure:</strong> AWS-based solution for reliability and scalability</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h2>Technical Architecture</h2>
-                    <div class="architecture-grid">
-                        <div class="arch-item">
-                            <h3>Data Storage</h3>
-                            <p>AWS S3 for scalable and durable data storage with cost-effective pricing</p>
+                <div class="project-section story-section">
+                    <h2>Identifying the Problem: Beyond the Spotify Wrapped</h2>
+                    <p>Spotify's annual Wrapped feature is great, but it's limited. It only shows you data once a year, and it doesn't let you dive deep into the patterns. I wanted to answer questions like:</p>
+                    
+                    <div class="problem-questions">
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>How does my music taste change throughout the day?</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Data Processing</h3>
-                            <p>AWS Glue for serverless ETL jobs and data transformation</p>
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>Which artists am I discovering vs. returning to?</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Query Engine</h3>
-                            <p>AWS Athena for serverless SQL queries on S3 data</p>
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>Do I listen to different genres on weekdays vs. weekends?</p>
                         </div>
-                        <div class="arch-item">
-                            <h3>Data Pipeline</h3>
-                            <p>Python-based automation for data collection and processing</p>
+                        <div class="question-item">
+                            <i class="fas fa-question-circle"></i>
+                            <p>How often do I skip songs, and what patterns emerge?</p>
                         </div>
                     </div>
+                    
+                    <p>The Spotify API provides access to this data, but it's raw and unstructured. To get meaningful insights, I needed to build a system that could automatically collect, process, and analyze this data on a regular basis. That's when I decided to create a complete data pipeline using AWS services.</p>
                 </div>
 
-                <div class="project-section">
-                    <h2>Challenges & Solutions</h2>
-                    <div class="challenge-item">
-                        <h3>Challenge: Large-Scale Data Processing</h3>
-                        <p>Processing and analyzing data from 10,000+ tracks efficiently while maintaining cost-effectiveness.</p>
-                        <p><strong>Solution:</strong> Implemented serverless AWS architecture with S3, Glue, and Athena for scalable and cost-effective data processing.</p>
+                <div class="project-section story-section">
+                    <h2>Designing the System: From API to Analytics</h2>
+                    <p>To make SpotiFriend scalable and automated, I designed a cloud-native architecture that could handle data extraction, processing, and analysis with minimal manual intervention. Here's how I approached it:</p>
+                    
+                    <div class="system-design-grid">
+                        <div class="design-item">
+                            <h3><i class="fas fa-download"></i> Data Extraction Layer</h3>
+                            <p>I built a Python-based ETL system using the Spotify Web API with PKCE authentication for secure access to user data. The system extracts multiple data types:</p>
+                            <ul>
+                                <li>Top tracks and artists across different time ranges (short, medium, long term)</li>
+                                <li>Recently played tracks with timestamps and audio features</li>
+                                <li>Playlist data including track details and user behavior</li>
+                                <li>User profile information and listening statistics</li>
+                            </ul>
+                            <p>The extraction process handles both free and premium account features, with graceful degradation for premium-only data points.</p>
+                        </div>
+                        
+                        <div class="design-item">
+                            <h3><i class="fas fa-cloud"></i> AWS Cloud Infrastructure</h3>
+                            <p>I implemented a serverless architecture using AWS services for scalability and cost-effectiveness:</p>
+                            <ul>
+                                <li><strong>S3:</strong> Data lake storage with partitioned JSONL format for efficient querying</li>
+                                <li><strong>Lambda:</strong> Serverless functions for data processing and transformation</li>
+                                <li><strong>Glue:</strong> Data catalog and ETL jobs for schema management</li>
+                                <li><strong>Athena:</strong> Serverless SQL queries for analytics</li>
+                                <li><strong>EventBridge:</strong> Automated scheduling for daily data collection</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="design-item">
+                            <h3><i class="fas fa-cogs"></i> Data Processing Pipeline</h3>
+                            <p>The processing layer handles data transformation and quality:</p>
+                            <ul>
+                                <li>JSON to JSONL conversion for efficient storage</li>
+                                <li>Data validation and error handling</li>
+                                <li>Partitioning by date for optimal query performance</li>
+                                <li>Schema evolution handling for API changes</li>
+                                <li>Incremental processing to avoid duplicate data</li>
+                            </ul>
+                            <p>I used Pandas for data manipulation and Boto3 for AWS service integration, ensuring the pipeline could handle both small and large datasets efficiently.</p>
+                        </div>
+                        
+                        <div class="design-item">
+                            <h3><i class="fas fa-chart-line"></i> Analytics and Visualization</h3>
+                            <p>For insights and reporting, I implemented:</p>
+                            <ul>
+                                <li><strong>Amazon QuickSight:</strong> Interactive dashboards for trend analysis</li>
+                                <li><strong>Custom Analytics:</strong> SQL queries for specific insights</li>
+                                <li><strong>Automated Reports:</strong> Scheduled generation of listening summaries</li>
+                                <li><strong>Real-time Monitoring:</strong> Pipeline health and data quality metrics</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="challenge-item">
-                        <h3>Challenge: Real-time Analytics</h3>
-                        <p>Providing fast SQL queries on large datasets without maintaining expensive database infrastructure.</p>
-                        <p><strong>Solution:</strong> Used AWS Athena for serverless SQL queries directly on S3 data, eliminating the need for database servers.</p>
+
+                    <!-- Architecture Diagram -->
+                    <div class="project-section story-section">
+                        <h2>System Architecture</h2>
+                        <p>Here's the complete data engineering architecture I designed for SpotiFriend:</p>
+                        
+                        <div class="architecture-diagram">
+                            <h3><i class="fas fa-project-diagram"></i> AWS Data Pipeline Architecture</h3>
+                            <div class="architecture-flow">
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fab fa-spotify"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>Data Sources</h4>
+                                        <p>Spotify Web API</p>
+                                        <p>User Authentication (PKCE)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fab fa-python"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>Data Extraction</h4>
+                                        <p>Python ETL Script</p>
+                                        <p>Spotipy Library</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fab fa-aws"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>Cloud Processing</h4>
+                                        <p>AWS Lambda (Serverless)</p>
+                                        <p>Data Transformation</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>Data Storage</h4>
+                                        <p>AWS S3 Data Lake</p>
+                                        <p>Partitioned JSONL Format</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>Data Catalog</h4>
+                                        <p>AWS Glue</p>
+                                        <p>Schema Management</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>Analytics</h4>
+                                        <p>Amazon Athena (SQL)</p>
+                                        <p>Amazon QuickSight</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="architecture-details">
+                                <div class="detail-item">
+                                    <h4><i class="fas fa-clock"></i> Automation</h4>
+                                    <p>EventBridge scheduler triggers daily data collection runs</p>
+                                </div>
+                                <div class="detail-item">
+                                    <h4><i class="fas fa-shield-alt"></i> Security</h4>
+                                    <p>PKCE authentication ensures secure API access</p>
+                                </div>
+                                <div class="detail-item">
+                                    <h4><i class="fas fa-expand-arrows-alt"></i> Scalability</h4>
+                                    <p>Serverless architecture scales automatically with demand</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="project-section">
-                    <h2>Results & Impact</h2>
-                    <ul>
-                        <li>Successfully processed data from 10,000+ tracks</li>
-                        <li>Implemented real-time SQL querying capabilities</li>
-                        <li>Built scalable cloud-based data pipeline</li>
-                        <li>Reduced infrastructure costs through serverless architecture</li>
-                        <li>Provided insights into music listening patterns and preferences</li>
-                    </ul>
-                </div>
+                    <!-- Data Pipeline Details -->
+                    <div class="project-section story-section">
+                        <h2>Data Pipeline Implementation</h2>
+                        <p>The core of SpotiFriend is a robust ETL pipeline that handles data extraction, transformation, and loading with proper error handling and monitoring:</p>
+                        
+                        <div class="pipeline-details">
+                            <div class="pipeline-step">
+                                <h4><i class="fas fa-download"></i> 1. Data Extraction</h4>
+                                <p>Using the Spotify Web API with PKCE authentication, the system extracts:</p>
+                                <ul>
+                                    <li><strong>Top Tracks/Artists:</strong> Across short-term (4 weeks), medium-term (6 months), and long-term (calculated from several years) time ranges</li>
+                                    <li><strong>Recently Played:</strong> Track history with timestamps, audio features, and metadata</li>
+                                    <li><strong>Playlist Data:</strong> User-created and followed playlists with track details</li>
+                                    <li><strong>User Profile:</strong> Account information and listening statistics</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="pipeline-step">
+                                <h4><i class="fas fa-cogs"></i> 2. Data Processing</h4>
+                                <p>The processing layer handles data transformation and quality assurance:</p>
+                                <ul>
+                                    <li><strong>JSON to JSONL:</strong> Conversion for efficient storage and querying</li>
+                                    <li><strong>Data Validation:</strong> Schema validation and error handling for API responses</li>
+                                    <li><strong>Partitioning:</strong> Date-based partitioning for optimal query performance</li>
+                                    <li><strong>Deduplication:</strong> Handling of duplicate records and incremental processing</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="pipeline-step">
+                                <h4><i class="fas fa-database"></i> 3. Data Storage</h4>
+                                <p>Data is stored in AWS S3 with a well-organized structure:</p>
+                                <ul>
+                                    <li><strong>Raw Data:</strong> Partitioned by data type and date for efficient access</li>
+                                    <li><strong>Processed Data:</strong> Cleaned and transformed datasets ready for analysis</li>
+                                    <li><strong>Metadata:</strong> Schema definitions and data lineage information</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="pipeline-step">
+                                <h4><i class="fas fa-chart-bar"></i> 4. Analytics & Insights</h4>
+                                <p>The analytics layer provides actionable insights:</p>
+                                <ul>
+                                    <li><strong>Trend Analysis:</strong> Listening patterns over time and seasonal variations</li>
+                                    <li><strong>Genre Analysis:</strong> Music taste evolution and genre preferences</li>
+                                    <li><strong>Artist Insights:</strong> Discovery patterns and loyalty metrics</li>
+                                    <li><strong>Behavioral Analysis:</strong> Skip rates, listening duration, and session patterns</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="project-section">
-                    <h2>Future Enhancements</h2>
-                    <ul>
-                        <li>Machine learning models for music recommendation</li>
-                        <li>Real-time streaming analytics with Kinesis</li>
-                        <li>Advanced visualization dashboard</li>
-                        <li>Integration with other music platforms</li>
-                        <li>Social features for sharing music insights</li>
-                    </ul>
+                    <!-- Technical Implementation -->
+                    <div class="project-section story-section">
+                        <h2>Technical Implementation Highlights</h2>
+                        <p>Here are the key technical challenges I solved and the solutions I implemented:</p>
+                        
+                        <div class="tech-highlights">
+                            <div class="tech-item">
+                                <h4><i class="fas fa-shield-alt"></i> Secure Authentication</h4>
+                                <p>Implemented PKCE (Proof Key for Code Exchange) authentication for secure Spotify API access without exposing client secrets. This ensures the application can run securely in production environments.</p>
+                            </div>
+                            
+                            <div class="tech-item">
+                                <h4><i class="fas fa-sync"></i> Automated Scheduling</h4>
+                                <p>Used AWS EventBridge to schedule daily data collection runs, ensuring fresh insights without manual intervention. The system handles failures gracefully with retry logic and error notifications.</p>
+                            </div>
+                            
+                            <div class="tech-item">
+                                <h4><i class="fas fa-expand-arrows-alt"></i> Scalable Architecture</h4>
+                                <p>Designed the system to handle both individual user data and potential multi-user scenarios. The serverless architecture automatically scales based on demand and only charges for actual usage.</p>
+                            </div>
+                            
+                            <div class="tech-item">
+                                <h4><i class="fas fa-code"></i> Code Quality</h4>
+                                <p>Implemented proper error handling, logging, and monitoring throughout the pipeline. Used environment variables for configuration management and followed AWS best practices for security and performance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Future Enhancements -->
+                    <div class="project-section story-section">
+                        <h2>Future Enhancements</h2>
+                        <p>SpotiFriend has the foundation for several exciting enhancements that would further demonstrate advanced data engineering capabilities:</p>
+                        
+                        <div class="enhancement-grid">
+                            <div class="enhancement-item">
+                                <h4><i class="fas fa-brain"></i> Machine Learning Integration</h4>
+                                <p>Implement recommendation systems using AWS SageMaker to predict user preferences and suggest new music based on listening patterns and audio features.</p>
+                            </div>
+                            
+                            <div class="enhancement-item">
+                                <h4><i class="fas fa-users"></i> Multi-User Support</h4>
+                                <p>Scale the system to handle multiple users with proper data isolation, user management, and personalized dashboards for each user.</p>
+                            </div>
+                            
+                            <div class="enhancement-item">
+                                <h4><i class="fas fa-stream"></i> Real-time Processing</h4>
+                                <p>Implement real-time data streaming using AWS Kinesis to process listening events as they happen, enabling live analytics and instant insights.</p>
+                            </div>
+                            
+                            <div class="enhancement-item">
+                                <h4><i class="fas fa-mobile-alt"></i> Mobile Application</h4>
+                                <p>Develop a mobile app that provides personalized music insights, trend notifications, and social features for sharing music discoveries.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <div class="project-section story-section">
+                        <h2>Conclusion: Beyond the Music</h2>
+                        <p>SpotiFriend started as a way to understand my music taste, but it became much more than that. It's a comprehensive demonstration of modern data engineering practices, from API integration and cloud architecture to automated processing and analytics.</p>
+                        
+                        <p>The project showcases my ability to:</p>
+                        <ul>
+                            <li>Design and implement end-to-end data pipelines</li>
+                            <li>Work with cloud-native technologies and serverless architectures</li>
+                            <li>Handle real-world data challenges like authentication, error handling, and scalability</li>
+                            <li>Create meaningful insights from raw data</li>
+                            <li>Build production-ready systems with proper monitoring and maintenance</li>
+                        </ul>
+                        
+                        <p>While the insights about my music taste were interesting, the real value came from building a system that could reliably collect, process, and analyze data at scale. It's a perfect example of how data engineering can turn curiosity into actionable insights.</p>
+                        
+                        <p>SpotiFriend represents my approach to data engineering: start with a real problem, design a scalable solution, implement it with best practices, and continuously improve based on results. It's not just about the technology—it's about using data to understand the world better.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,22 +416,55 @@
     <div class="project-navigation">
         <div class="container">
             <div class="nav-buttons">
-                <a href="chesslytics.html" class="nav-btn prev-btn">
+                <a href="chesslytics.html" class="nav-btn back-btn">
                     <i class="fas fa-chevron-left"></i>
                     <span>Previous: ChessLytics</span>
                 </a>
-                <a href="../projects.html" class="nav-btn back-btn">
-                    <i class="fas fa-th"></i>
+                <a href="../projects.html" class="nav-btn next-btn">
                     <span>All Projects</span>
-                </a>
-                <a href="nlp-pipeline.html" class="nav-btn next-btn">
-                    <span>Next: NLP Data Pipeline</span>
-                    <i class="fas fa-chevron-right"></i>
+                    <i class="fas fa-th"></i>
                 </a>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Edward Lai</h3>
+                    <p>Data Engineer & Analyst</p>
+                    <p>Turning data into insights, one project at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../resume.html">Resume</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/edwardl903" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/edwardlai" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:edwardlai@example.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Edward Lai. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="../script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
 </body>
 </html> 

@@ -4265,4 +4265,154 @@ section h2 {
     .architecture-diagram h3 {
         font-size: 1.5rem;
     }
+}
+
+/* Architecture Flow Styles */
+.architecture-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+    border-radius: 15px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+    padding: 1.5rem 1rem;
+    background: rgba(10, 10, 10, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.flow-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    border-color: rgba(139, 92, 246, 0.6);
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.flow-step:hover .step-icon {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+}
+
+.step-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #8b5cf6;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.step-content p {
+    font-size: 0.85rem;
+    color: #cccccc;
+    margin: 0.2rem 0;
+    line-height: 1.4;
+}
+
+.flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #8b5cf6;
+    margin: 0 0.5rem;
+    animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% { 
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.architecture-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.detail-item {
+    background: rgba(10, 10, 10, 0.6);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+}
+
+.detail-item h4 {
+    font-size: 1.1rem;
+    color: #8b5cf6;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-item h4 i {
+    color: #a855f7;
+}
+
+.detail-item p {
+    color: #cccccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .architecture-flow {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .flow-step {
+        min-width: 100%;
+    }
+    
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .architecture-details {
+        grid-template-columns: 1fr;
+    }
 } 
