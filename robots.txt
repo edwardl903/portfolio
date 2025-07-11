@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://edwardlai.com/sitemap.xml
+
+# Allow all pages to be indexed
+Disallow:
+
+# Crawl delay (optional)
+Crawl-delay: 1 
