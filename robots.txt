@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://edwardlai.com/sitemap.xml
+Sitemap: https://edward-lai.com/sitemap.xml
 
 # Allow all pages to be indexed
 Disallow:
