@@ -1,0 +1,21 @@
+{
+  "name": "Edward Lai Portfolio",
+  "short_name": "Edward Lai",
+  "description": "Edward Lai - Data Engineer & Data Analyst Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "static/images/profile-picture.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "static/images/profile-picture.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+} 
