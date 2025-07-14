@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChessLytics Azure Analytics - Edward Lai</title>
+    <link rel="stylesheet" href="../styles.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .architecture-layout {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-top: 1rem;
+        }
+        
+        .architecture-text {
+            flex: 2;
+            min-width: 0;
+        }
+        
+        .pipeline-image {
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .architecture-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="grid"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">EL</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../resume.html">Resume</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Hobbies <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../hobbies/piano.html">Piano</a></li>
+                        <li><a href="../hobbies/chess.html">Chess</a></li>
+                        <li><a href="../hobbies/volleyball.html">Volleyball</a></li>
+                        <li><a href="../hobbies/skateboarding.html">Skateboarding</a></li>
+                    </ul>
+                </li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-image">
+                    <img src="../static/images/chesslytics-azure.jpg" alt="ChessLytics Azure Analytics">
+                </div>
+                <div class="project-info">
+                    <h1>ChessLytics Azure Analytics</h1>
+                    <p class="project-description">Scalable Azure-based chess analytics extension processing millions of games using Databricks, Delta Lake, and Spark SQL for trend analysis.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Big Data Analytics</span>
+                        <span class="tech-tag">Data Engineering</span>
+                        <span class="tech-tag">Microsoft Azure</span>
+                        <span class="tech-tag">Azure Databricks</span>
+                        <span class="tech-tag">Azure Data Factory (ADF)</span>
+                        <span class="tech-tag">Azure Data Lake (ADLS Gen2)</span>
+                        <span class="tech-tag">Apache Spark</span>
+                        <span class="tech-tag">Delta Lake</span>
+                        <span class="tech-tag">Lakehouse</span>
+                        <span class="tech-tag">Spark SQL</span>
+                        <span class="tech-tag">Python (PySpark)</span>
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">Databricks SQL</span>
+                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">ETL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <div class="project-section">
+                    <h2>Overview</h2>
+                    <p>This project was an extension of my original ChessLytics platform, but scaled up to handle millions of chess games using Microsoft Azure's big data services. While the original ChessLytics processed around 100,000 games, this Azure version was designed to analyze trends across millions of games to uncover deeper insights about chess strategy and player behavior patterns.</p>
+                </div>
+
+                <div class="project-section">
+                    <p>I built this on Azure Databricks, which gave me the power to process massive datasets using Spark SQL. The data was stored in Azure Data Lake and Blob Storage, with Delta Lake providing the reliability and performance needed for this scale of analysis.</p>
+                    
+                    <p>The goal was to move beyond individual player analytics and start identifying broader trends in chess - things like how opening popularity changes over time, which strategies are becoming more or less effective, and what patterns emerge when you look at millions of games together.</p>
+                </div>
+
+                <div class="project-section">
+                    <p>I set up the data pipeline to ingest chess games from multiple sources, transform them using Delta Lake for ACID compliance, and then run complex analytical queries using Spark SQL. The Delta Lake mounts made it easy to access data across different storage layers while maintaining data integrity.</p>
+                    
+                    <p>The analytics focused on trend analysis - looking at how chess strategies evolve over time, identifying which openings are gaining or losing popularity, and understanding the relationship between player ratings and strategic choices across massive datasets.</p>
+                </div>
+
+                <div class="project-section">
+                    <h2>Architecture Overview</h2>
+                    <div class="architecture-layout">
+                        <div class="architecture-text">
+                            <p>The data pipeline starts with a massive local chess file containing the entire Lichess database - over 6.8 billion games totaling 2.16TB of data. This represents years of chess games from millions of players worldwide.</p>
+                            
+                            <p>Azure Data Factory handles the initial data ingestion, copying this massive dataset into Azure Data Lake Storage Gen2. From there, the data flows into Delta Lake tables, which provide ACID compliance and efficient storage for the processed data.</p>
+                            
+                            <p>Azure Databricks processes this data using Apache Spark clusters. I wrote Python scripts using PySpark to transform and analyze the chess games, then used Spark SQL to run complex analytical queries across the massive dataset.</p>
+                            
+                            <p>The processed data is stored back in Delta Lake, which can then be queried using Databricks SQL Warehouse. Finally, Power BI connects to create interactive dashboards and visualizations that reveal trends and patterns across millions of chess games.</p>
+                        </div>
+                        <div class="pipeline-image">
+                            <img src="../static/images/chesslytics-azure-pipeline.png" alt="ChessLytics Azure Pipeline Architecture" style="max-width: 300px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <p>This project really showed me the power of cloud-based big data processing. Being able to analyze millions of chess games in a reasonable amount of time opened up possibilities that just weren't feasible with the original local setup. It also taught me a lot about data lake architecture and how to design systems that can scale to handle truly massive datasets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Navigation -->
+    <div class="project-navigation">
+        <div class="container">
+            <div class="nav-buttons">
+                <a href="chesslytics.html" class="nav-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>Previous: ChessLytics</span>
+                </a>
+                <a href="../projects.html" class="nav-btn back-btn">
+                    <i class="fas fa-th"></i>
+                    <span>All Projects</span>
+                </a>
+                <a href="spotifriend.html" class="nav-btn next-btn">
+                    <span>Next: SpotiFriend</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Edward Lai. Built with ❤️ and lots of ☕</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html> 
